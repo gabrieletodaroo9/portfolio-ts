@@ -36,7 +36,7 @@ function ValueFeatureCard({ iconClass, title, description }: ValueCard) {
         </div>
 
         <h1 className="h4 fw-bold text-center mb-2">{title}</h1>
-        <p className="text-center text-secondary mb-0">{description}</p>
+        <p className="text-center text-dark mb-0">{description}</p>
       </div>
     </article>
   );

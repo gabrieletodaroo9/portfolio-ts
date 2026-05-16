@@ -1,0 +1,15 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.text-secondary {
+  color: #F17F1D!important;
+}
+
+.bg-secondary,
+.btn-secondary {
+  background-color: #F17F1D !important;
+  border-color: #F17F1D !important;
+}

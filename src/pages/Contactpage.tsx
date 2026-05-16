@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState, type SyntheticEvent } from "react";
 
 type ContactForm = {
   fullName: string;
@@ -23,7 +23,7 @@ export default function Contactpage() {
     }));
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!formData.fullName || !formData.email || !formData.message || !formData.privacyAccepted) {
@@ -32,6 +32,7 @@ export default function Contactpage() {
     }
 
     setErrorMessage("");
+    console.log("Dati form contatto:", formData);
   }
 
   return (
@@ -41,7 +42,7 @@ export default function Contactpage() {
           <div className="col-12 col-lg-7">
             <div className="text-center mb-5">
               <h1 className="display-5 fw-bold mb-3">Definiamo insieme come implementare le tue idee.</h1>
-              <p className="lead text-secondary mb-0">
+              <p className="lead text-dark mb-0">
                 Parlami del tuo progetto e capiremo subito come trasformare i tuoi requisiti in un'architettura digitale pronta.
               </p>
             </div>
@@ -101,7 +102,11 @@ export default function Contactpage() {
                 </label>
               </div>
 
-              <button type="submit" className="btn btn-secondary w-100 fw-semibold">
+              <button
+                type="submit"
+                className="btn btn-secondary w-100 fw-semibold"
+                disabled={!formData.privacyAccepted}
+              >
                 Invia richiesta
               </button>
             </form>
