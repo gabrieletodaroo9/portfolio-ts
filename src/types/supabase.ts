@@ -21,6 +21,7 @@ export type Database = {
           id: number
           is_primary: boolean | null
           project_id: number
+          section: string | null
           sort_order: number | null
           type: string
           updated_at: string | null
@@ -31,6 +32,7 @@ export type Database = {
           id?: number
           is_primary?: boolean | null
           project_id: number
+          section?: string | null
           sort_order?: number | null
           type: string
           updated_at?: string | null
@@ -41,6 +43,7 @@ export type Database = {
           id?: number
           is_primary?: boolean | null
           project_id?: number
+          section?: string | null
           sort_order?: number | null
           type?: string
           updated_at?: string | null
@@ -60,6 +63,7 @@ export type Database = {
           created_at: string | null
           id: number
           project_id: number
+          section: string | null
           technology_id: number
           updated_at: string | null
         }
@@ -67,6 +71,7 @@ export type Database = {
           created_at?: string | null
           id?: number
           project_id: number
+          section?: string | null
           technology_id: number
           updated_at?: string | null
         }
@@ -74,6 +79,7 @@ export type Database = {
           created_at?: string | null
           id?: number
           project_id?: number
+          section?: string | null
           technology_id?: number
           updated_at?: string | null
         }
@@ -96,11 +102,19 @@ export type Database = {
       }
       projects: {
         Row: {
+          backend_description: string | null
+          backend_img_url: string | null
+          backend_link_github: string | null
+          cover_img_url: string | null
           created_at: string | null
           description: string
+          frontend_description: string | null
+          frontend_img_url: string | null
+          frontend_link_github: string | null
+          has_backend: boolean
+          has_frontend: boolean
           id: number
-          img_url: string | null
-          link_github: string
+          link_github: string | null
           link_live: string | null
           slug: string
           title: string
@@ -108,11 +122,19 @@ export type Database = {
           updated_at: string | null
         }
         Insert: {
+          backend_description?: string | null
+          backend_img_url?: string | null
+          backend_link_github?: string | null
+          cover_img_url?: string | null
           created_at?: string | null
           description: string
+          frontend_description?: string | null
+          frontend_img_url?: string | null
+          frontend_link_github?: string | null
+          has_backend?: boolean
+          has_frontend?: boolean
           id?: number
-          img_url?: string | null
-          link_github: string
+          link_github?: string | null
           link_live?: string | null
           slug: string
           title: string
@@ -120,11 +142,19 @@ export type Database = {
           updated_at?: string | null
         }
         Update: {
+          backend_description?: string | null
+          backend_img_url?: string | null
+          backend_link_github?: string | null
+          cover_img_url?: string | null
           created_at?: string | null
           description?: string
+          frontend_description?: string | null
+          frontend_img_url?: string | null
+          frontend_link_github?: string | null
+          has_backend?: boolean
+          has_frontend?: boolean
           id?: number
-          img_url?: string | null
-          link_github?: string
+          link_github?: string | null
           link_live?: string | null
           slug?: string
           title?: string
