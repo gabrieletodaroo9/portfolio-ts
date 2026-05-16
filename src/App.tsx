@@ -2,6 +2,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import ScrollToTop from './components/layout/ScrollToTop';
+import ScrollToTopButton from './components/layout/ScrollToTopButton';
 import DefaultLayout from './layouts/DefaultLayout';
 import Homepage from './pages/Homepage';
 import Projectspage from './pages/Projectspage';
@@ -13,6 +14,7 @@ export default function App() {
   return (
     <BrowserRouter>
      <ScrollToTop />
+     <ScrollToTopButton />
      <Routes>
       <Route element={<DefaultLayout />}>
         <Route path="/" element={<Homepage />} />
