@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
+design.md
 supabase/.temp
 supabase/.branches
 supabase/functions/.import_map.json
