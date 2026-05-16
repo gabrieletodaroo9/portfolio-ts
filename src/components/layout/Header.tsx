@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
+import { getPublicStorageUrl } from "../../supabaseClient";
 
 export default function Header() {
   return (
@@ -8,7 +9,7 @@ export default function Header() {
           
           <Link className="navbar-brand d-flex align-items-center" to="/">
             <img 
-              src="https://pzlwltdgpzdfmvmttjff.supabase.co/storage/v1/object/public/portfolio-assets/profile/logo.webp" 
+              src={getPublicStorageUrl("portfolio-assets/profile/logo.webp")}
               alt="Logo" 
               height="30" 
             />

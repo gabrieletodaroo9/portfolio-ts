@@ -1,9 +1,6 @@
 
-export default function Homepage() {
+import HeroSection from "../components/home/HeroSection";
 
-    return (
-        <div className="container mt-4">
-            <h1>HOME portfolio!</h1>
-        </div>
-    )
+export default function Homepage() {
+  return <HeroSection />;
 }
