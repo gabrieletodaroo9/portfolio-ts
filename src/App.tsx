@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import DefaultLayout from './layouts/DefaultLayout';
 import Homepage from './pages/Homepage';
+import Projectspage from './pages/Projectspage';
 
 
 export default function App() {
@@ -12,8 +13,9 @@ export default function App() {
      <Routes>
       <Route element={<DefaultLayout />}>
         <Route path="/" element={<Homepage />} />
+        <Route path="/projects" element={<Projectspage />} />
       </Route>
      </Routes>
     </BrowserRouter>
-  );
+  )
 }
