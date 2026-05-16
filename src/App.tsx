@@ -4,6 +4,7 @@ import './App.css';
 import DefaultLayout from './layouts/DefaultLayout';
 import Homepage from './pages/Homepage';
 import Projectspage from './pages/Projectspage';
+import Contactpage from './pages/Contactpage';
 
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
       <Route element={<DefaultLayout />}>
         <Route path="/" element={<Homepage />} />
         <Route path="/projects" element={<Projectspage />} />
+        <Route path="/contact" element={<Contactpage />} />
       </Route>
      </Routes>
     </BrowserRouter>
