@@ -4,6 +4,51 @@
   padding: 0;
 }
 
+:root {
+  --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Lora', Georgia, 'Times New Roman', serif;
+  --bs-body-font-family: var(--font-body);
+}
+
+body {
+  font-family: var(--font-body);
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+.display-1,
+.display-2,
+.display-3,
+.display-4,
+.display-5,
+.display-6,
+.navbar,
+.navbar-brand,
+.navbar-nav,
+.nav-link,
+.btn,
+.form-label,
+.form-control,
+.form-select {
+  font-family: var(--font-heading);
+}
+
+p,
+.lead {
+  font-family: var(--font-body);
+}
+
 .text-secondary {
   color: #f17f1d !important;
 }
@@ -38,5 +83,4 @@
     radial-gradient(at 10% 10%, rgba(241, 127, 29, 0.15) 0px, transparent 50%),
     linear-gradient(135deg, #16191c 0%, #0b0c10 100%);
 }
-
 

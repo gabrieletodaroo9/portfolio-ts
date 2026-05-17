@@ -42,7 +42,7 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
 
   return (
     <div>
-      <div className="position-relative w-50">
+      <div className="position-relative">
         {activeMedia.type === "video" ? (
           <video className="w-100 rounded border" controls>
             <source src={getPublicStorageUrl(activeMedia.file_path)} />

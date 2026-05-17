@@ -162,19 +162,53 @@ export default function ProjectDetailsCard({
         Torna ai progetti
       </Link>
 
-      <section className="row g-4 align-items-center mb-5">
-        <div className={shouldShowCoverImage ? "col-12 col-lg-6" : "col-12"}>
-          <span
-            className="badge border px-3 py-2 mb-3"
-            style={{ color: categoryColor, borderColor: categoryColor }}
-          >
-            {categoryName}
-          </span>
+      <section className="row g-5 align-items-start mb-5">
+        <div className={hasFrontendMedia || hasBackendMedia ? "col-12 col-md-5" : shouldShowCoverImage ? "col-12 col-lg-6" : "col-12"}>
+          <div className="mb-4">
+            <span
+              className="badge border px-3 py-2 mb-3"
+              style={{ color: categoryColor, borderColor: categoryColor }}
+            >
+              {categoryName}
+            </span>
 
-          <h1 className="display-5 fw-bold mb-3">{project.title}</h1>
-          <p className="lead text-dark mb-4">{project.description}</p>
+            <h1 className="display-4 fw-bold mb-4">{project.title}</h1>
+            <p className="lead text-dark mb-0">{project.description}</p>
+          </div>
 
-          <div className="d-flex flex-column flex-sm-row gap-3">
+          {generalTechnologies.length > 0 && (
+            <div className="border-top pt-4 mb-4">
+              <h2 className="h5 fw-bold mb-3">Tecnologie utilizzate</h2>
+
+              <div className="d-flex flex-wrap gap-3">
+                {generalTechnologies.map((item) =>
+                  item.technologies ? (
+                    <span
+                      key={item.technologies.id}
+                      className="d-inline-flex align-items-center gap-2 rounded-4 px-2 py-1"
+                    >
+                      {item.technologies.img_url && (
+                        <>
+                          <img
+                            className="object-fit-contain"
+                            src={getPublicStorageUrl(item.technologies.img_url)}
+                            alt={item.technologies.name}
+                            width={24}
+                            height={24}
+                          />
+                          <span className="text-muted d-none d-md-inline">
+                            {item.technologies.name}
+                          </span>
+                        </>
+                      )}
+                    </span>
+                  ) : null,
+                )}
+              </div>
+            </div>
+          )}
+
+          <div className="d-flex flex-column flex-sm-row gap-3 border-top pt-4">
             {project.link_live && (
               <a
                 href={project.link_live}
@@ -199,6 +233,65 @@ export default function ProjectDetailsCard({
           </div>
         </div>
 
+        {(hasFrontendMedia || hasBackendMedia) && (
+          <div className="col-12 col-md-7"> 
+            <div className="border rounded p-3 p-md-5 bg-light">
+              <div className="d-flex flex-column flex-sm-row justify-content-between gap-1 mb-4">
+                <div>
+                  <h3 className="text-dark fw-bold mb-2">Dettagli {activeMediaTitle}</h3>
+                </div>
+
+                {hasBothMediaSections && (
+                  <div className="btn-group">
+                    <button
+                      type="button"
+                      className={`btn btn-sm ${activeMediaSection === "frontend" ? "btn-secondary" : "btn-outline-secondary"}`}
+                      onClick={showFrontendMedia}
+                    >
+                      Frontend
+                    </button>
+                    <button
+                      type="button"
+                      className={`btn btn-sm ${activeMediaSection === "backend" ? "btn-secondary" : "btn-outline-secondary"}`}
+                      onClick={showBackendMedia}
+                    >
+                      Backend
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {(activeMediaDescription || activeMediaGithub) && (
+                <div className="mb-4">
+                  {activeMediaDescription && (
+                    <p className="text-dark mb-3">{activeMediaDescription}</p>
+                  )}
+
+                  {activeMediaGithub && (
+                    <a
+                      href={activeMediaGithub}
+                      className="btn btn-outline-secondary fw-semibold"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {" "}
+                      <i className="bi bi-github"> Github</i>
+                    </a>
+                  )}
+                </div>
+              )}
+
+              {selectedMediaList.length > 0 && (
+                <ProjectMediaCarousel
+                  key={activeMediaSection}
+                  mediaList={selectedMediaList}
+                  title={`${project.title} ${activeMediaSection}`}
+                />
+              )}
+            </div>
+          </div>
+        )}
+
         {shouldShowCoverImage && project.cover_img_url && (
           <div className="col-12 col-lg-6">
             <img
@@ -209,39 +302,6 @@ export default function ProjectDetailsCard({
           </div>
         )}
       </section>
-
-      {generalTechnologies.length > 0 && (
-        <section className="mb-5">
-          <h2 className="h3 fw-bold mb-4">Tecnologie utilizzate</h2>
-
-          <div className="d-flex flex-wrap gap-4">
-            {generalTechnologies.map((item) =>
-              item.technologies ? (
-                <span
-                  key={item.technologies.id}
-                  className="d-inline-flex align-items-center gap-2 rounded-4 px-2 py-1"
-                >
-                  {item.technologies.img_url && (
-                    <>
-                      {" "}
-                      <img
-                        className="object-fit-contain"
-                        src={getPublicStorageUrl(item.technologies.img_url)}
-                        alt={item.technologies.name}
-                        width={24}
-                        height={24}
-                      />
-                      <span className="text-muted d-none d-md-inline">
-                        {item.technologies.name}
-                      </span>
-                    </>
-                  )}
-                </span>
-              ) : null,
-            )}
-          </div>
-        </section>
-      )}
 
       {hasSectionTechnologies && (
         <section className="border-top pt-5 mb-5">
@@ -286,63 +346,6 @@ export default function ProjectDetailsCard({
               </div>
             )}
           </div>
-        </section>
-      )}
-
-      {(hasFrontendMedia || hasBackendMedia) && (
-        <section className="border-top pt-5 mb-5">
-          <div className="d-flex flex-column flex-sm-row justify-content-between gap-3 mb-4">
-            <h2 className="h3 fw-bold mb-0">Dettagli {activeMediaTitle}</h2>
-
-            {hasBothMediaSections && (
-              <div className="btn-group">
-                <button
-                  type="button"
-                  className={`btn btn-sm ${activeMediaSection === "frontend" ? "btn-secondary" : "btn-outline-secondary"}`}
-                  onClick={showFrontendMedia}
-                >
-                  Frontend
-                </button>
-                <button
-                  type="button"
-                  className={`btn btn-sm ${activeMediaSection === "backend" ? "btn-secondary" : "btn-outline-secondary"}`}
-                  onClick={showBackendMedia}
-                >
-                  Backend
-                </button>
-              </div>
-            )}
-          </div>
-
-          {(activeMediaDescription || activeMediaGithub) && (
-            <div className="mb-4">
-              {activeMediaDescription && (
-                <p className="text-dark mb-3">{activeMediaDescription}</p>
-              )}
-
-              {activeMediaGithub && (
-                <a
-                  href={activeMediaGithub}
-                  className="btn btn-outline-secondary fw-semibold"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {" "}
-                  <i className="bi bi-github"> Github</i>
-                </a>
-              )}
-            </div>
-          )}
-
-          {selectedMediaList.length > 0 && (
-            <div className="d-flex justify-content-center align-items-center">
-              <ProjectMediaCarousel
-                key={activeMediaSection}
-                mediaList={selectedMediaList}
-                title={`${project.title} ${activeMediaSection}`}
-              />
-            </div>
-          )}
         </section>
       )}
     </article>
