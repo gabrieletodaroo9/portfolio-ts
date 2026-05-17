@@ -13,14 +13,6 @@ type ProjectCardProps = {
   project: ProjectWithRelations
 }
 
-function getShortDescription(description: string): string {
-  if (description.length <= 120) {
-    return description
-  }
-
-  return `${description.slice(0, 120)}...`
-}
-
 export default function ProjectCard({ project }: ProjectCardProps) {
   const categoryName = project.types?.name ?? "Uncategorized"
   const categoryColor = project.types?.color ?? "#6c757d"
@@ -44,9 +36,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
         <div className="card-body d-flex flex-column p-3">
           <h2 className="h4 fw-bold text-dark mb-3">{project.title}</h2>
-          <p className="text-dark mb-4">{getShortDescription(project.description)}</p>
 
-          <div className="mt-auto d-flex align-items-center border-top border-2 pt-3 justify-content-between gap-3">
+          <div className="mt-auto d-flex align-items-center border-top border-1 pt-3 justify-content-between gap-3">
             <div className="d-flex align-items-center gap-2">
               {visibleTechnologies.map((item) =>
                 item.technologies?.img_url ? (

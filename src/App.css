@@ -5,11 +5,36 @@
 }
 
 .text-secondary {
-  color: #F17F1D!important;
+  color: #f17f1d !important;
+}
+
+.border-secondary {
+  border-color: #f17f1d !important;
 }
 
 .bg-secondary,
 .btn-secondary {
-  background-color: #F17F1D !important;
-  border-color: #F17F1D !important;
+  background-color: #f17f1d !important;
+  border-color: #f17f1d !important;
+}
+
+.btn-outline-secondary {
+  color: #f17f1d !important;
+  border-color: #f17f1d !important;
+  &:hover {
+    color: white !important;
+    background-color: #f17f1d !important;
+    box-shadow: 0 0 0 0.25rem rgba(240, 195, 155, 0.2) !important;
+  }
+}
+
+.bg-blur{
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(20px);
+}
+
+.bg-hero-gradient {
+  background: 
+    radial-gradient(at 10% 10%, rgba(241, 127, 29, 0.15) 0px, transparent 50%),
+    linear-gradient(135deg, #16191c 0%, #0b0c10 100%);
 }

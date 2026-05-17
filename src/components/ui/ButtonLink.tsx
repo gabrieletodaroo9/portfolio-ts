@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 type ButtonLinkProps = {
   to: string;
   children: string;
-  variant?: "secondary" | "outline-secondary";
+  variant?: "secondary" | "outline-secondary" | "outline-light";
 };
 
 export default function ButtonLink({ to, children, variant = "secondary" }: ButtonLinkProps) {

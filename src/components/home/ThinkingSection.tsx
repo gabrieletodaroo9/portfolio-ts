@@ -32,8 +32,8 @@ export default function ThinkingSection() {
   }, [])
 
   return (
-    <section className="py-5">
-      <div className="container py-5">
+    <section className="py-3 py-lg-5">
+      <div className="container py-lg-5">
         <div className="row g-4 align-items-center">
           <div className="col-12 col-lg-4">
             {isLoading && (
@@ -48,7 +48,7 @@ export default function ThinkingSection() {
               {technologies.map((technology) => (
                 <div
                   key={technology.id}
-                  className="col-4 d-flex flex-column align-items-center"
+                  className="col-4 d-none d-lg-flex flex-column align-items-center"
                 >
                   {technology.img_url && (
                     <img

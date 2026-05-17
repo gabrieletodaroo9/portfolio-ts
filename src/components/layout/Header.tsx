@@ -3,15 +3,16 @@ import { getPublicStorageUrl } from "../../supabaseClient";
 
 export default function Header() {
   return (
-    <header>
-      <nav className="navbar navbar-expand-sm navbar-light shadow-sm py-3">
-        <div className="container-fluid px-md-5">
+    <header className="shadow-sm sticky-top bg-blur">
+      <div className="container">
+        <nav className="navbar navbar-expand-sm navbar-light py-3">
+        <div className="container-fluid">
           
           <Link className="navbar-brand d-flex align-items-center" to="/">
             <img 
               src={getPublicStorageUrl("portfolio-assets/profile/logo.webp")}
               alt="Logo" 
-              height="30" 
+              height="35" 
             />
           </Link>
           
@@ -23,12 +24,12 @@ export default function Header() {
             <div className="navbar-nav ms-auto fw-bold align-items-center gap-2 py-sm-0">
               <NavLink to="/" className="nav-link">Home</NavLink>
               <NavLink to="/projects" className="nav-link">Progetti</NavLink>
-              <Link to="/contact" className="btn btn-secondary" >Contatti</Link>
+              <Link to="/contact" className="btn btn-outline-secondary fw-semibold" >Inizia un progetto</Link>
             </div>
           </div>
-
         </div>
       </nav>
+      </div>
     </header>
   );
 }
