@@ -292,7 +292,7 @@ export default function ProjectDetailsCard({
       {(hasFrontendMedia || hasBackendMedia) && (
         <section className="border-top pt-5 mb-5">
           <div className="d-flex flex-column flex-sm-row justify-content-between gap-3 mb-4">
-            <h2 className="h3 fw-bold mb-0">Dettagli {activeMediaSection}</h2>
+            <h2 className="h3 fw-bold mb-0">Dettagli {activeMediaTitle}</h2>
 
             {hasBothMediaSections && (
               <div className="btn-group">
