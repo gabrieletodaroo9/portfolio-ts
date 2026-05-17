@@ -1,6 +1,22 @@
 import { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
 import { getPublicStorageUrl, supabase } from "../../supabaseClient";
 import { type Tables } from "../../types/supabase";
+
+function TechnologiesSkeleton() {
+  return (
+    <div className="row g-4" aria-hidden="true">
+      {Array.from({ length: 6 }).map((_, index) => (
+        <div
+          key={index}
+          className="col-4 d-none d-lg-flex flex-column align-items-center"
+        >
+          <Skeleton width={60} height={60} borderRadius={12} />
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function ThinkingSection() {
   const [technologies, setTechnologies] = useState<Tables<"technologies">[]>(
@@ -36,31 +52,31 @@ export default function ThinkingSection() {
       <div className="container py-lg-5">
         <div className="row g-4 align-items-center">
           <div className="col-12 col-lg-4">
-            {isLoading && (
-              <div className="alert alert-dark">Caricamento tecnologie...</div>
-            )}
-
             {errorMessage && (
               <div className="alert alert-danger">{errorMessage}</div>
             )}
 
-            <div className="row g-4">
-              {technologies.map((technology) => (
-                <div
-                  key={technology.id}
-                  className="col-4 d-none d-lg-flex flex-column align-items-center"
-                >
-                  {technology.img_url && (
-                    <img
-                      src={getPublicStorageUrl(technology.img_url)}
-                      alt={technology.name}
-                      style={{ height: "60px", width: "60px" }}
-                      className="object-fit-contain"
-                    />
-                  )}
-                </div>
-              ))}
-            </div>
+            {isLoading ? (
+              <TechnologiesSkeleton />
+            ) : (
+              <div className="row g-4">
+                {technologies.map((technology) => (
+                  <div
+                    key={technology.id}
+                    className="col-4 d-none d-lg-flex flex-column align-items-center"
+                  >
+                    {technology.img_url && (
+                      <img
+                        src={getPublicStorageUrl(technology.img_url)}
+                        alt={technology.name}
+                        style={{ height: "60px", width: "60px" }}
+                        className="object-fit-contain"
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="col-12 col-lg-8 p-lg-5" >
