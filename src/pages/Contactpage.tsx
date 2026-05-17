@@ -1,4 +1,5 @@
-import { useState, type SyntheticEvent } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type ContactForm = {
   fullName: string;
@@ -7,7 +8,21 @@ type ContactForm = {
   privacyAccepted: boolean;
 };
 
+type Web3FormsResponse = {
+  success: boolean;
+  message?: string;
+};
+
+type ContactSubmitEvent = {
+  preventDefault: () => void;
+  currentTarget: HTMLFormElement;
+};
+
+const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as string | undefined;
+const emailFromName = "Portfolio - Richiesta progetto";
+
 export default function Contactpage() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<ContactForm>({
     fullName: "",
     email: "",
@@ -15,6 +30,7 @@ export default function Contactpage() {
     privacyAccepted: false,
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   function updateField(fieldName: keyof ContactForm, value: string | boolean) {
     setFormData((currentFormData) => ({
@@ -23,7 +39,7 @@ export default function Contactpage() {
     }));
   }
 
-  function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
+  async function handleSubmit(event: ContactSubmitEvent) {
     event.preventDefault();
 
     if (!formData.fullName || !formData.email || !formData.message || !formData.privacyAccepted) {
@@ -31,8 +47,56 @@ export default function Contactpage() {
       return;
     }
 
+    if (!accessKey) {
+      setErrorMessage("Chiave Web3Forms mancante. Controlla il file .env.");
+      return;
+    }
+
+    setIsLoading(true);
     setErrorMessage("");
-    console.log("Dati form contatto:", formData);
+
+    try {
+      const web3FormsData = new FormData();
+
+      web3FormsData.append("access_key", accessKey);
+      web3FormsData.append("subject", `Nuova richiesta progetto da ${formData.fullName}`);
+      web3FormsData.append("from_name", emailFromName);
+      web3FormsData.append("replyto", formData.email);
+
+      // Questi campi vengono mostrati nel corpo dell'email con etichette piu leggibili.
+      web3FormsData.append("Nome completo", formData.fullName);
+      web3FormsData.append("Email contatto", formData.email);
+      web3FormsData.append("Messaggio", formData.message);
+      web3FormsData.append("Privacy policy", "Accettata");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: web3FormsData,
+      });
+
+      const data = (await response.json()) as Web3FormsResponse;
+
+      if (!response.ok || !data.success) {
+        setErrorMessage(data.message || "Invio non riuscito. Riprova tra qualche minuto.");
+        return;
+      }
+
+      setFormData({
+        fullName: "",
+        email: "",
+        message: "",
+        privacyAccepted: false,
+      });
+      navigate("/contact/success", {
+        state: {
+          fullName: formData.fullName,
+        },
+      });
+    } catch {
+      setErrorMessage("Si e verificato un errore durante l'invio. Controlla la connessione e riprova.");
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -47,17 +111,18 @@ export default function Contactpage() {
               </p>
             </div>
 
-            <form className="" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
               {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-
               <div className="mb-3">
                 <label htmlFor="fullName" className="form-label">
                   Nome completo
                 </label>
                 <input
                   id="fullName"
+                  name="name"
                   type="text"
                   className="form-control"
+                  required
                   value={formData.fullName}
                   onChange={(event) => updateField("fullName", event.target.value)}
                 />
@@ -69,8 +134,10 @@ export default function Contactpage() {
                 </label>
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   className="form-control"
+                  required
                   value={formData.email}
                   onChange={(event) => updateField("email", event.target.value)}
                 />
@@ -82,8 +149,10 @@ export default function Contactpage() {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
                   className="form-control"
                   rows={6}
+                  required
                   value={formData.message}
                   onChange={(event) => updateField("message", event.target.value)}
                 ></textarea>
@@ -92,8 +161,10 @@ export default function Contactpage() {
               <div className="form-check mb-4">
                 <input
                   id="privacyAccepted"
+                  name="privacy_accepted"
                   type="checkbox"
                   className="form-check-input"
+                  required
                   checked={formData.privacyAccepted}
                   onChange={(event) => updateField("privacyAccepted", event.target.checked)}
                 />
@@ -105,14 +176,14 @@ export default function Contactpage() {
               <button
                 type="submit"
                 className="btn btn-secondary w-100 fw-semibold"
-                disabled={!formData.privacyAccepted}
+                disabled={isLoading || !formData.privacyAccepted}
               >
-                Invia richiesta
+                {isLoading ? "Invio in corso..." : "Invia richiesta"}
               </button>
             </form>
           </div>
         </div>
       </div>
     </section>
-  );
+  )
 }

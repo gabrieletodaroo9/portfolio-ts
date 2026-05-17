@@ -7,6 +7,7 @@ import DefaultLayout from './layouts/DefaultLayout';
 import Homepage from './pages/Homepage';
 import Projectspage from './pages/Projectspage';
 import Contactpage from './pages/Contactpage';
+import ContactSuccessPage from './pages/ContactSuccessPage';
 
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/projects" element={<Projectspage />} />
         <Route path="/contact" element={<Contactpage />} />
+        <Route path="/contact/success" element={<ContactSuccessPage />} />
       </Route>
      </Routes>
     </BrowserRouter>
