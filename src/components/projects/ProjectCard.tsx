@@ -24,7 +24,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       : project.project_technology.slice(0, 6)
 
   return (
-    <Link to="/" className="text-decoration-none text-reset">
+    <Link to={`/projects/${project.slug}`} className="text-decoration-none text-reset">
       <article className="card h-100 border shadow-sm overflow-hidden bg-light rounded-4">
         {project.cover_img_url && (
           <img
