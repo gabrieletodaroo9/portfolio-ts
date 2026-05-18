@@ -104,7 +104,7 @@ export default function Projectspage() {
       {isLoading ? (
         <ProjectsCardsSkeleton />
       ) : (
-        <div className="row g-5 animate-fade-in">
+        <div className="row g-5 pt-2 pb-5 mb-2 animate-fade-in">
           {filteredProjects.map((project) => (
             <div key={project.id} className="col-12 col-md-6 col-xl-4">
               <ProjectCard project={project} />

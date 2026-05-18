@@ -34,7 +34,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       to={`/projects/${project.slug}`}
       className="text-decoration-none text-reset"
     >
-      <article className="card h-100 border shadow-sm overflow-hidden bg-light rounded-4 d-flex flex-column">
+      <article className="card h-100 border shadow-sm overflow-hidden bg-light rounded-3 d-flex flex-column">
         {project.cover_img_url && (
     
           <div className="ratio ratio-16x9 position-relative overflow-hidden bg-secondary-subtle">
@@ -70,7 +70,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                     alt={item.technologies.name}
                     width="24"
                     height="24"
-                    className="rounded-circle"
+                    className="rounded object-fit-contain"
                   />
                 ) : null
               )}

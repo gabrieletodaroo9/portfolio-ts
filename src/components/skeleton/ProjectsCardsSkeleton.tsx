@@ -5,7 +5,7 @@ export default function ProjectsCardsSkeleton() {
     <div className="row g-5" aria-hidden="true">
       {Array.from({ length: 8 }).map((_, index) => (
         <div key={index} className="col-12 col-md-6 col-xl-4">
-          <article className="card h-100 border shadow-sm overflow-hidden bg-light rounded-4 d-flex flex-column">
+          <article className="card h-100 border shadow-sm overflow-hidden bg-light rounded-3 d-flex flex-column">
             <div className="ratio ratio-16x9 overflow-hidden">
               <Skeleton
                 className="position-absolute top-0 start-0 w-100 h-100"
@@ -22,16 +22,16 @@ export default function ProjectsCardsSkeleton() {
                 style={{ height: "54px" }}
               >
                 <div className="d-flex align-items-center gap-2">
-                  {Array.from({ length: 3 }).map((_, technology_index) => (
+                  {Array.from({ length: 5 }).map((_, technology_index) => (
                     <Skeleton
                       key={technology_index}
                       width={24}
                       height={24}
-                      borderRadius={50}
+                      borderRadius={7}
                     />
                   ))}
                 </div>
-                <Skeleton width={90} height={28} borderRadius={20} />
+                <Skeleton width={90} height={28} borderRadius={8} />
               </div>
             </div>
           </article>
