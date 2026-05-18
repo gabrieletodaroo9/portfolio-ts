@@ -8,6 +8,7 @@ type ProjectMediaPanelProps = {
   carouselTitle: string;
   headerActions?: ReactNode;
   body?: ReactNode;
+  animationKey?: string;
 };
 
 export default function ProjectMediaPanel({
@@ -15,17 +16,19 @@ export default function ProjectMediaPanel({
   carouselTitle,
   headerActions,
   body,
+  animationKey,
 }: ProjectMediaPanelProps) {
   return (
-    <div className="border rounded p-3 p-md-5 bg-light">
-      <div className="d-flex flex-column flex-sm-row justify-content-between gap-3 mb-4">
+    <div className="border rounded bg-light overflow-hidden">
+      {headerActions && (
+        <div className="project-media-panel-header">{headerActions}</div>
+      )}
 
-        {headerActions}
+      <div key={animationKey} className="project-media-panel-content p-3 p-md-5">
+        {body}
+
+        <ProjectMediaCarousel mediaList={mediaList} title={carouselTitle} />
       </div>
-
-      {body}
-
-      <ProjectMediaCarousel mediaList={mediaList} title={carouselTitle} />
     </div>
   );
 }

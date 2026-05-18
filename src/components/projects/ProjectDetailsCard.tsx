@@ -87,21 +87,31 @@ export default function ProjectDetailsCard({
     project.link_github ||
     project.frontend_link_github ||
     project.backend_link_github;
+  const categoryName = project.types!.name;
+  const categoryColor = project.types!.color;
 
   function renderSectionToggle() {
     return (
-      <div className="btn-group align-self-start">
+      <div
+        className={`project-section-switch ${selectedMediaSection === "backend" ? "is-backend" : "is-frontend"}`}
+        role="tablist"
+        aria-label="Sezioni progetto"
+      >
         <button
           type="button"
-          className={`btn btn-sm shadow ${selectedMediaSection === "frontend" ? "btn-secondary" : "btn-outline-secondary"}`}
+          className="project-section-switch-option"
           onClick={() => setSelectedMediaSection("frontend")}
+          aria-selected={selectedMediaSection === "frontend"}
+          role="tab"
         >
           Frontend
         </button>
         <button
           type="button"
-          className={`btn btn-sm shadow ${selectedMediaSection === "backend" ? "btn-secondary" : "btn-outline-secondary"}`}
+          className="project-section-switch-option"
           onClick={() => setSelectedMediaSection("backend")}
+          aria-selected={selectedMediaSection === "backend"}
+          role="tab"
         >
           Backend
         </button>
@@ -135,17 +145,24 @@ export default function ProjectDetailsCard({
 
   return (
     <article>
-      <Link to="/projects" className="btn border-0 pt-0 btn-outline-secondary mb-4">
-        <i className="bi bi-arrow-left me-2"></i>
-        Torna ai progetti
-      </Link>
+      <div className="d-flex align-items-center justify-content-between gap-3 mb-4">
+        <Link to="/projects" className="btn border-0 pt-0 btn-outline-secondary">
+          <i className="bi bi-arrow-left me-2"></i>
+          Torna ai progetti
+        </Link>
+
+        <span
+          className="badge border px-3 py-2 shadow-sm flex-shrink-0"
+          style={{ color: categoryColor, borderColor: categoryColor }}
+        >
+          Progetto {categoryName}
+        </span>
+      </div>
 
       {isFullStack ? (
         <section className="row g-5 align-items-start mb-5">
           <div className="col-12 col-md-5">
             <ProjectDetailHeading
-              categoryName={project.types!.name}
-              categoryColor={project.types!.color}
               title={project.title}
               description={project.description}
             />
@@ -166,11 +183,11 @@ export default function ProjectDetailsCard({
 
           <div className="col-12 col-md-7">
             <ProjectMediaPanel
-              key={selectedMediaSection}
               mediaList={activeMedia}
               carouselTitle={`${project.title} ${selectedMediaSection}`}
               headerActions={renderSectionToggle()}
               body={renderPanelBody(activeDescription, activeGithub)}
+              animationKey={selectedMediaSection}
             />
           </div>
         </section>
@@ -179,8 +196,6 @@ export default function ProjectDetailsCard({
           <div className="row g-5 align-items-start">
             <div className="col-12 col-lg-5">
               <ProjectDetailHeading
-                categoryName={project.types!.name}
-                categoryColor={project.types!.color}
                 title={project.title}
                 description={project.description}
               />
