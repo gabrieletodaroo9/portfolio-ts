@@ -44,9 +44,9 @@ function ValueFeatureCard({ iconClass, title, description }: ValueCard) {
 
 export default function ValuesSection() {
   return (
-    <section className="py-5">
+    <section className="pt-0 pb-5 mb-4">
       <div className="container">
-        <div className="row g-4">
+        <div className="row g-5">
           {valueCards.map((card) => (
             <div key={card.title} className="col-12 col-md-4">
               <ValueFeatureCard {...card} />

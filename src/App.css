@@ -59,6 +59,133 @@ p,
   font-family: var(--font-body);
 }
 
+.site-main {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.site-main-background-video {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.site-main-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* #endregion */
+
+/* #region PROJECTS FILTERS */
+
+.projects-filter-field,
+.projects-category-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 48px;
+  gap: 0.75rem;
+  border: 1px solid #e8eaef;
+  border-radius: 0.75rem;
+  background: #fff;
+  color: #0b1626;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+}
+
+.projects-filter-field:focus-within,
+.projects-category-toggle:focus-visible {
+  border-color: rgba(241, 127, 29, 0.45);
+  box-shadow: 0 0 0 0.25rem rgba(241, 127, 29, 0.12);
+  outline: 0;
+}
+
+.projects-filter-field {
+  padding: 0 1rem;
+}
+
+.projects-filter-icon {
+  color: #163c68;
+  line-height: 1;
+}
+
+.projects-filter-input,
+.projects-category-toggle {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+}
+
+.projects-filter-input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+}
+
+.projects-filter-input::placeholder {
+  color: #526176;
+  opacity: 1;
+}
+
+.projects-category-select {
+  position: relative;
+}
+
+.projects-category-toggle {
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.projects-category-label {
+  flex: 1;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.projects-category-chevron {
+  color: #163c68;
+  font-size: 0.85rem;
+}
+
+.projects-category-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  z-index: 10;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #e8eaef;
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 1rem 2rem rgba(15, 23, 42, 0.12);
+}
+
+.projects-category-option {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 0.75rem 1rem;
+  color: #0b1626;
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  text-align: left;
+}
+
+.projects-category-option:hover,
+.projects-category-option:focus-visible,
+.projects-category-option.is-selected {
+  background: rgba(241, 127, 29, 0.1);
+  outline: 0;
+}
+
 /* #endregion */
 
 /* #region UTILS */

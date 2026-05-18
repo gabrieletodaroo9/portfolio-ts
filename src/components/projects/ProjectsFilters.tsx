@@ -1,3 +1,4 @@
+import { useState, type FocusEvent } from "react";
 import { type Tables } from "../../types/supabase";
 
 type ProjectsFiltersProps = {
@@ -9,38 +10,99 @@ type ProjectsFiltersProps = {
 }
 
 export default function ProjectsFilters(props: ProjectsFiltersProps) {
+  const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false)
+
+  const selectedCategoryName =
+    props.categories.find((category) => String(category.id) === props.selectedCategoryId)
+      ?.name ?? "Tutte le categorie"
+
+  function closeCategoryMenuOnFocusLeave(event: FocusEvent<HTMLDivElement>) {
+    const nextFocusedElement = event.relatedTarget
+
+    if (
+      nextFocusedElement instanceof Node &&
+      event.currentTarget.contains(nextFocusedElement)
+    ) {
+      return
+    }
+
+    setIsCategoryMenuOpen(false)
+  }
+
+  function selectCategory(categoryId: string) {
+    props.setSelectedCategoryId(categoryId)
+    setIsCategoryMenuOpen(false)
+  }
+
   return (
-    <section className="mb-5">
+    <section className="projects-filters mb-5">
       <div className="row g-3">
         <div className="col-12 col-lg-9">
-          <div className="input-group">
-            <span className="input-group-text bg-white">
+          <label className="projects-filter-field">
+            <span className="projects-filter-icon">
               <i className="bi bi-search"></i>
             </span>
             <input
               type="search"
-              className="form-control"
+              className="projects-filter-input"
               placeholder="Cerca tra i progetti..."
               value={props.searchTerm}
               onChange={(event) => props.setSearchTerm(event.target.value)}
+              aria-label="Cerca tra i progetti"
             />
-          </div>
+          </label>
         </div>
 
         <div className="col-12 col-lg-3">
-          <select
-            className="form-select"
-            value={props.selectedCategoryId}
-            onChange={(event) => props.setSelectedCategoryId(event.target.value)}
-            aria-label="Filtra per categoria"
+          <div
+            className="projects-category-select"
+            onBlur={closeCategoryMenuOnFocusLeave}
           >
-            <option value="">Tutte le categorie</option>
-            {props.categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
+            <button
+              type="button"
+              className="projects-category-toggle"
+              onClick={() => setIsCategoryMenuOpen((isOpen) => !isOpen)}
+              aria-haspopup="listbox"
+              aria-expanded={isCategoryMenuOpen}
+            >
+              <span className="projects-filter-icon">
+                <i className="bi bi-layers"></i>
+              </span>
+              <span className="projects-category-label">{selectedCategoryName}</span>
+              <i className="bi bi-chevron-down projects-category-chevron"></i>
+            </button>
+
+            {isCategoryMenuOpen && (
+              <div className="projects-category-menu" role="listbox">
+                <button
+                  type="button"
+                  className={`projects-category-option ${
+                    props.selectedCategoryId === "" ? "is-selected" : ""
+                  }`}
+                  onClick={() => selectCategory("")}
+                  role="option"
+                  aria-selected={props.selectedCategoryId === ""}
+                >
+                  Tutte le categorie
+                </button>
+
+                {props.categories.map((category) => (
+                  <button
+                    key={category.id}
+                    type="button"
+                    className={`projects-category-option ${
+                      String(category.id) === props.selectedCategoryId ? "is-selected" : ""
+                    }`}
+                    onClick={() => selectCategory(String(category.id))}
+                    role="option"
+                    aria-selected={String(category.id) === props.selectedCategoryId}
+                  >
+                    {category.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>

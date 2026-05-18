@@ -4,7 +4,11 @@ import { type Tables } from "../../types/supabase";
 import TechnologyIconSkeleton from "../skeleton/TechnologyIconSkeleton";
 import TechnologiesSkeleton from "../skeleton/TechnologiesSkeleton";
 
-function TechnologyIcon({ technology }: { technology: Tables<"technologies"> }) {
+function TechnologyIcon({
+  technology,
+}: {
+  technology: Tables<"technologies">;
+}) {
   const [isImgLoaded, setIsImgLoaded] = useState(false);
 
   if (!technology.img_url) return null;
@@ -33,7 +37,9 @@ function TechnologyIcon({ technology }: { technology: Tables<"technologies"> }) 
 }
 
 export default function ThinkingSection() {
-  const [technologies, setTechnologies] = useState<Tables<"technologies">[]>([]);
+  const [technologies, setTechnologies] = useState<Tables<"technologies">[]>(
+    [],
+  );
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -50,7 +56,7 @@ export default function ThinkingSection() {
         setTechnologies(data);
       } catch (error) {
         setErrorMessage(
-          "Si e verificato un errore durante il caricamento delle tecnologie."
+          "Si e verificato un errore durante il caricamento delle tecnologie.",
         );
         console.error(error);
       } finally {
@@ -62,7 +68,7 @@ export default function ThinkingSection() {
   }, []);
 
   return (
-    <section className="py-3 py-lg-5">
+    <section className="py-3 pt-lg-5 pb-lg-4 mb-0">
       <div className="container py-lg-5">
         <div className="row g-4 align-items-center">
           <div className="col-12 col-lg-3">
@@ -75,42 +81,39 @@ export default function ThinkingSection() {
             ) : (
               <div className="row g-4">
                 {technologies.map((technology) => (
-                  <TechnologyIcon
-                    key={technology.id}
-                    technology={technology}
-                  />
+                  <TechnologyIcon key={technology.id} technology={technology} />
                 ))}
               </div>
             )}
           </div>
 
           <div className="col-12 col-lg-9 p-lg-5">
-           <article
-  className="position-relative rounded-5 overflow-hidden ms-lg-5 p-4 p-lg-5 bg-white shadow-sm"
-  style={{
-    borderLeft: "5px solid #f17f1d",
-    borderTop: "1px solid rgba(22, 25, 28, 0.08)",
-    borderRight: "1px solid rgba(22, 25, 28, 0.08)",
-    borderBottom: "1px solid rgba(22, 25, 28, 0.08)",
-  }}
->
-  <p
-    className="mb-0 fw-semibold text-dark-emphasis"
-    style={{ fontSize: "1.4rem", lineHeight: "1.85" }}
-  >
-    Mi piace quando dietro un progetto c'è un filo logico. Per me
-    programmare non è solo far funzionare le cose ma farlo bene,
-    scrivendo codice pulito e organizzando il lavoro perché tutto
-    sia fluido e facile da gestire. Punto molto sulla curiosità e
-    sulla voglia di capire cosa succede "sotto il cofano". Mi piace
-    avere la visione d'insieme, dalla struttura del database fino al
-    momento in cui il sito è finalmente online. Traduco idee in
-    progetti concreti, puntando tutto su utilità e semplicità d'uso.
-  </p>
-</article>
+            <article
+              className="position-relative rounded-5 overflow-hidden ms-lg-5 p-4 p-lg-5 bg-white shadow-sm"
+              style={{
+                borderLeft: "5px solid #f17f1d",
+                borderTop: "1px solid rgba(22, 25, 28, 0.08)",
+                borderRight: "1px solid rgba(22, 25, 28, 0.08)",
+                borderBottom: "1px solid rgba(22, 25, 28, 0.08)",
+              }}
+            >
+              <p
+                className="mb-0 fw-semibold text-dark-emphasis"
+                style={{ fontSize: "1.4rem", lineHeight: "1.85" }}
+              >
+                Mi piace quando dietro un progetto c'è un filo logico. Per me
+                programmare non è solo far funzionare le cose ma farlo bene,
+                scrivendo codice pulito e organizzando il lavoro perché tutto
+                sia fluido e facile da gestire. Punto molto sulla curiosità e
+                sulla voglia di capire cosa succede "sotto il cofano". Mi piace
+                avere la visione d'insieme, dalla struttura del database fino al
+                momento in cui il sito è finalmente online. Traduco idee in
+                progetti concreti, puntando tutto su utilità e semplicità d'uso.
+              </p>
+            </article>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
