@@ -58,13 +58,13 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
         {hasMoreImages && (
           <div className="d-flex justify-content-between mt-3">
             <button type="button" className="btn btn-outline-secondary btn-sm" onClick={showPreviousImage}>
-              Precedente
+              <i className="bi bi-arrow-left"></i>
             </button>
             <span className="small text-muted align-self-center">
               {safeActiveIndex + 1} / {mediaList.length}
             </span>
             <button type="button" className="btn btn-outline-secondary btn-sm" onClick={showNextImage}>
-              Successiva
+              <i className="bi bi-arrow-right"></i>
             </button>
           </div>
         )}

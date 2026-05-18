@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { getPublicStorageUrl } from "../../supabaseClient";
 import { type Tables } from "../../types/supabase";
-import ProjectMediaCarousel, {
-  type ProjectCarouselMedia,
-} from "./ProjectMediaCarousel";
+import ProjectActionLinks from "./ProjectActionLinks";
+import ProjectDetailHeading from "./ProjectDetailHeading";
+import { type ProjectCarouselMedia } from "./ProjectMediaCarousel";
+import ProjectMediaPanel from "./ProjectMediaPanel";
+import {
+  ProjectTechnologyIcons,
+  type ProjectTechnologyItem,
+} from "./ProjectTechnologyList";
 
 type ProjectMedia = Pick<
   Tables<"project_media">,
@@ -12,7 +16,6 @@ type ProjectMedia = Pick<
 >;
 
 type ProjectTechnology = {
-  section: string | null;
   technologies: Pick<Tables<"technologies">, "id" | "name" | "img_url"> | null;
 };
 
@@ -28,49 +31,25 @@ type ProjectDetailsCardProps = {
 
 type MediaSection = "frontend" | "backend";
 
-function normalizeSection(section: string | null) {
-  if (!section) {
-    return "";
-  }
-
-  return section.trim().toLowerCase().replace("_", "-");
-}
-
-function isFrontendSection(section: string | null) {
-  const normalizedSection = normalizeSection(section);
-
-  return normalizedSection === "frontend" || normalizedSection === "front-end";
-}
-
-function isBackendSection(section: string | null) {
-  const normalizedSection = normalizeSection(section);
-
-  return normalizedSection === "backend" || normalizedSection === "back-end";
-}
-
-function hasSameFilePath(firstPath: string | null, secondPath: string) {
-  if (!firstPath) {
-    return false;
-  }
-
-  return firstPath === secondPath;
-}
-
 function sortMedia(mediaList: ProjectMedia[]) {
-  return mediaList.sort((firstMedia, secondMedia) => {
-    const firstOrder = firstMedia.sort_order ?? 0;
-    const secondOrder = secondMedia.sort_order ?? 0;
-
-    return firstOrder - secondOrder;
-  });
+  return [...mediaList].sort(
+    (firstMedia, secondMedia) =>
+      (firstMedia.sort_order ?? 0) - (secondMedia.sort_order ?? 0),
+  );
 }
 
-function createImageMedia(id: number, filePath: string): ProjectCarouselMedia {
+function createCoverMedia(filePath: string): ProjectCarouselMedia {
   return {
-    id,
+    id: -1,
     file_path: filePath,
     type: "image",
   };
+}
+
+function getTechnologyItems(
+  technologies: ProjectTechnology[],
+): ProjectTechnologyItem[] {
+  return technologies.map((item) => item.technologies!);
 }
 
 export default function ProjectDetailsCard({
@@ -78,276 +57,165 @@ export default function ProjectDetailsCard({
 }: ProjectDetailsCardProps) {
   const [selectedMediaSection, setSelectedMediaSection] =
     useState<MediaSection>("frontend");
-  const categoryName = project.types?.name ?? "Uncategorized";
-  const categoryColor = project.types?.color ?? "#6c757d";
 
+  const isFullStack = project.has_frontend && project.has_backend;
   const frontendMedia = sortMedia(
-    project.project_media.filter(
-      (media) =>
-        isFrontendSection(media.section) ||
-        hasSameFilePath(project.frontend_img_url, media.file_path),
-    ),
+    project.project_media.filter((media) => media.section === "frontend"),
   );
   const backendMedia = sortMedia(
-    project.project_media.filter(
-      (media) =>
-        isBackendSection(media.section) ||
-        hasSameFilePath(project.backend_img_url, media.file_path),
-    ),
+    project.project_media.filter((media) => media.section === "backend"),
   );
+  const singleProjectMedia = project.cover_img_url
+    ? [createCoverMedia(project.cover_img_url), ...sortMedia(project.project_media)]
+    : sortMedia(project.project_media);
 
-  const frontendTechnologies = project.project_technology.filter((item) =>
-    isFrontendSection(item.section),
-  );
-  const backendTechnologies = project.project_technology.filter((item) =>
-    isBackendSection(item.section),
-  );
-  const generalTechnologies = project.project_technology.filter(
-    (item) =>
-      !isFrontendSection(item.section) && !isBackendSection(item.section),
-  );
-  const hasFrontendAndBackend = project.has_frontend && project.has_backend;
-  const projectCoverMedia = project.cover_img_url
-    ? [createImageMedia(-3, project.cover_img_url)]
-    : [];
-  const frontendCarouselMedia = hasFrontendAndBackend
-    ? frontendMedia
-    : [...projectCoverMedia, ...project.project_media];
-  const backendCarouselMedia = hasFrontendAndBackend
-    ? backendMedia
-    : [...projectCoverMedia, ...project.project_media];
-  const hasFrontendMedia = frontendCarouselMedia.length > 0;
-  const hasBackendMedia = backendCarouselMedia.length > 0;
-  const hasBothMediaSections =
-    hasFrontendAndBackend && hasFrontendMedia && hasBackendMedia;
-  const activeMediaSection = hasFrontendAndBackend
-    ? selectedMediaSection === "frontend" && hasFrontendMedia
-      ? "frontend"
-      : "backend"
-    : project.has_frontend
-      ? "frontend"
-      : "backend";
-  const selectedMediaList =
-    activeMediaSection === "frontend"
-      ? frontendCarouselMedia
-      : backendCarouselMedia;
-  const activeMediaTitle =
-    activeMediaSection === "frontend" ? "Frontend" : "Backend";
-  const activeMediaDescription =
-    activeMediaSection === "frontend"
+  const activeMedia =
+    selectedMediaSection === "frontend" ? frontendMedia : backendMedia;
+  const activeTitle =
+    selectedMediaSection === "frontend" ? "Frontend" : "Backend";
+  const activeDescription =
+    selectedMediaSection === "frontend"
       ? project.frontend_description
       : project.backend_description;
-  const activeMediaGithub =
-    activeMediaSection === "frontend"
+  const activeGithub =
+    selectedMediaSection === "frontend"
       ? project.frontend_link_github
       : project.backend_link_github;
-  const hasSectionTechnologies =
-    frontendTechnologies.length > 0 || backendTechnologies.length > 0;
-  const shouldShowCoverImage = Boolean(
-    project.cover_img_url && !hasFrontendAndBackend,
-  );
+  const singleProjectDescription =
+    project.frontend_description || project.backend_description;
+  const singleProjectGithub =
+    project.link_github ||
+    project.frontend_link_github ||
+    project.backend_link_github;
 
-  function showFrontendMedia() {
-    setSelectedMediaSection("frontend");
+  function renderSectionToggle() {
+    return (
+      <div className="btn-group align-self-start">
+        <button
+          type="button"
+          className={`btn btn-sm shadow ${selectedMediaSection === "frontend" ? "btn-secondary" : "btn-outline-secondary"}`}
+          onClick={() => setSelectedMediaSection("frontend")}
+        >
+          Frontend
+        </button>
+        <button
+          type="button"
+          className={`btn btn-sm shadow ${selectedMediaSection === "backend" ? "btn-secondary" : "btn-outline-secondary"}`}
+          onClick={() => setSelectedMediaSection("backend")}
+        >
+          Backend
+        </button>
+      </div>
+    );
   }
 
-  function showBackendMedia() {
-    setSelectedMediaSection("backend");
+  function renderPanelBody(description: string | null, githubUrl: string | null) {
+    if (!description && !githubUrl) {
+      return null;
+    }
+
+    return (
+      <div className="mb-4">
+        {description && <p className="text-dark mb-3">{description}</p>}
+
+        {githubUrl && (
+          <a
+            href={githubUrl}
+            className="btn btn-outline-secondary fw-semibold"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <i className="bi bi-github me-2"></i>
+            GitHub {activeTitle}
+          </a>
+        )}
+      </div>
+    );
   }
 
   return (
     <article>
-      <Link to="/projects" className="btn btn-outline-secondary mb-4">
+      <Link to="/projects" className="btn border-0 pt-0 btn-outline-secondary mb-4">
         <i className="bi bi-arrow-left me-2"></i>
         Torna ai progetti
       </Link>
 
-      <section className="row g-5 align-items-start mb-5">
-        <div className={hasFrontendMedia || hasBackendMedia ? "col-12 col-md-5" : shouldShowCoverImage ? "col-12 col-lg-6" : "col-12"}>
-          <div className="mb-4">
-            <span
-              className="badge border px-3 py-2 mb-3"
-              style={{ color: categoryColor, borderColor: categoryColor }}
-            >
-              {categoryName}
-            </span>
+      {isFullStack ? (
+        <section className="row g-5 align-items-start mb-5">
+          <div className="col-12 col-md-5">
+            <ProjectDetailHeading
+              categoryName={project.types!.name}
+              categoryColor={project.types!.color}
+              title={project.title}
+              description={project.description}
+            />
 
-            <h1 className="display-4 fw-bold mb-4">{project.title}</h1>
-            <p className="lead text-dark mb-0">{project.description}</p>
-          </div>
-
-          {generalTechnologies.length > 0 && (
-            <div className="border-top pt-4 mb-4">
-              <h2 className="h5 fw-bold mb-3">Tecnologie utilizzate</h2>
-
-              <div className="d-flex flex-wrap gap-3">
-                {generalTechnologies.map((item) =>
-                  item.technologies ? (
-                    <span
-                      key={item.technologies.id}
-                      className="d-inline-flex align-items-center gap-2 rounded-4 px-2 py-1"
-                    >
-                      {item.technologies.img_url && (
-                        <>
-                          <img
-                            className="object-fit-contain"
-                            src={getPublicStorageUrl(item.technologies.img_url)}
-                            alt={item.technologies.name}
-                            width={24}
-                            height={24}
-                          />
-                          <span className="text-muted d-none d-md-inline">
-                            {item.technologies.name}
-                          </span>
-                        </>
-                      )}
-                    </span>
-                  ) : null,
-                )}
-              </div>
-            </div>
-          )}
-
-          <div className="d-flex flex-column flex-sm-row gap-3 border-top pt-4">
-            {project.link_live && (
-              <a
-                href={project.link_live}
-                className="btn btn-secondary fw-semibold"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Vedi live
-              </a>
-            )}
-
-            {project.link_github && (
-              <a
-                href={project.link_github}
-                className="btn btn-outline-secondary fw-semibold"
-                target="_blank"
-                rel="noreferrer"
-              >
-                GitHub
-              </a>
-            )}
-          </div>
-        </div>
-
-        {(hasFrontendMedia || hasBackendMedia) && (
-          <div className="col-12 col-md-7"> 
-            <div className="border rounded p-3 p-md-5 bg-light">
-              <div className="d-flex flex-column flex-sm-row justify-content-between gap-1 mb-4">
-                <div>
-                  <h3 className="text-dark fw-bold mb-2">Dettagli {activeMediaTitle}</h3>
-                </div>
-
-                {hasBothMediaSections && (
-                  <div className="btn-group">
-                    <button
-                      type="button"
-                      className={`btn btn-sm ${activeMediaSection === "frontend" ? "btn-secondary" : "btn-outline-secondary"}`}
-                      onClick={showFrontendMedia}
-                    >
-                      Frontend
-                    </button>
-                    <button
-                      type="button"
-                      className={`btn btn-sm ${activeMediaSection === "backend" ? "btn-secondary" : "btn-outline-secondary"}`}
-                      onClick={showBackendMedia}
-                    >
-                      Backend
-                    </button>
-                  </div>
-                )}
-              </div>
-
-              {(activeMediaDescription || activeMediaGithub) && (
-                <div className="mb-4">
-                  {activeMediaDescription && (
-                    <p className="text-dark mb-3">{activeMediaDescription}</p>
-                  )}
-
-                  {activeMediaGithub && (
-                    <a
-                      href={activeMediaGithub}
-                      className="btn btn-outline-secondary fw-semibold"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {" "}
-                      <i className="bi bi-github"> Github</i>
-                    </a>
-                  )}
-                </div>
-              )}
-
-              {selectedMediaList.length > 0 && (
-                <ProjectMediaCarousel
-                  key={activeMediaSection}
-                  mediaList={selectedMediaList}
-                  title={`${project.title} ${activeMediaSection}`}
+            {project.project_technology.length > 0 && (
+              <div className="border-top pt-4 mb-4">
+                <h2 className="h5 fw-bold mb-3">Tecnologie utilizzate</h2>
+                <ProjectTechnologyIcons
+                  technologies={getTechnologyItems(project.project_technology)}
                 />
-              )}
-            </div>
-          </div>
-        )}
+              </div>
+            )}
 
-        {shouldShowCoverImage && project.cover_img_url && (
-          <div className="col-12 col-lg-6">
-            <img
-              src={getPublicStorageUrl(project.cover_img_url)}
-              alt={project.title}
-              className="img-fluid rounded border shadow-sm"
+            <ProjectActionLinks
+              githubUrl={project.link_github}
             />
           </div>
-        )}
-      </section>
 
-      {hasSectionTechnologies && (
-        <section className="border-top pt-5 mb-5">
-          <h2 className="h3 fw-bold mb-4">Tecnologie</h2>
+          <div className="col-12 col-md-7">
+            <ProjectMediaPanel
+              key={selectedMediaSection}
+              mediaList={activeMedia}
+              carouselTitle={`${project.title} ${selectedMediaSection}`}
+              headerActions={renderSectionToggle()}
+              body={renderPanelBody(activeDescription, activeGithub)}
+            />
+          </div>
+        </section>
+      ) : (
+        <section className="mb-5">
+          <div className="row g-5 align-items-start">
+            <div className="col-12 col-lg-5">
+              <ProjectDetailHeading
+                categoryName={project.types!.name}
+                categoryColor={project.types!.color}
+                title={project.title}
+                description={project.description}
+              />
 
-          <div className="row g-4">
-            {frontendTechnologies.length > 0 && (
-              <div className="col-12 col-lg-6">
-                <h3 className="h5 fw-bold mb-3">Frontend</h3>
-
-                <div className="d-flex flex-wrap gap-2">
-                  {frontendTechnologies.map((item) =>
-                    item.technologies ? (
-                      <span
-                        key={item.technologies.id}
-                        className="badge text-bg-light border text-dark"
-                      >
-                        {item.technologies.name}
-                      </span>
-                    ) : null,
-                  )}
+              {singleProjectDescription && (
+                <div className="border-top pt-4 mb-4">
+                  <h2 className="h5 fw-bold mb-3">Dettagli progetto</h2>
+                  <p className="text-dark mb-0">{singleProjectDescription}</p>
                 </div>
-              </div>
-            )}
+              )}
 
-            {backendTechnologies.length > 0 && (
-              <div className="col-12 col-lg-6">
-                <h3 className="h5 fw-bold mb-3">Backend</h3>
-
-                <div className="d-flex flex-wrap gap-2">
-                  {backendTechnologies.map((item) =>
-                    item.technologies ? (
-                      <span
-                        key={item.technologies.id}
-                        className="badge text-bg-light border text-dark"
-                      >
-                        {item.technologies.name}
-                      </span>
-                    ) : null,
-                  )}
+              {project.project_technology.length > 0 && (
+                <div className="border-top pt-4 mb-4">
+                  <h2 className="h5 fw-bold mb-3">Tecnologie utilizzate</h2>
+                  <ProjectTechnologyIcons
+                    technologies={getTechnologyItems(project.project_technology)}
+                  />
                 </div>
-              </div>
-            )}
+              )}
+
+              <ProjectActionLinks
+                githubUrl={singleProjectGithub}
+              />
+            </div>
+
+            <div className="col-12 col-lg-7">
+              <ProjectMediaPanel
+                mediaList={singleProjectMedia}
+                carouselTitle={project.title}
+              />
+            </div>
           </div>
         </section>
       )}
+
     </article>
   );
 }
