@@ -21,7 +21,7 @@ export default function Header() {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarID">
-            <div className="navbar-nav ms-auto fw-bold align-items-center gap-2 py-sm-0">
+            <div className="navbar-nav ms-auto fw-bold align-items-center gap-4 py-sm-0">
               <NavLink to="/" className="nav-link">Home</NavLink>
               <NavLink to="/projects" className="nav-link">Progetti</NavLink>
               <Link to="/contact" className="btn btn-outline-secondary fw-semibold" >Inizia un progetto</Link>

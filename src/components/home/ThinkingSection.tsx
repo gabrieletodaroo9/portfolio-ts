@@ -51,7 +51,7 @@ export default function ThinkingSection() {
     <section className="py-3 py-lg-5">
       <div className="container py-lg-5">
         <div className="row g-4 align-items-center">
-          <div className="col-12 col-lg-4">
+          <div className="col-12 col-lg-3">
             {errorMessage && (
               <div className="alert alert-danger">{errorMessage}</div>
             )}
@@ -63,7 +63,7 @@ export default function ThinkingSection() {
                 {technologies.map((technology) => (
                   <div
                     key={technology.id}
-                    className="col-4 d-none d-lg-flex flex-column align-items-center"
+                    className="col-6  d-none d-lg-flex flex-column align-items-center "
                   >
                     {technology.img_url && (
                       <img
@@ -79,7 +79,7 @@ export default function ThinkingSection() {
             )}
           </div>
 
-          <div className="col-12 col-lg-8 p-lg-5" >
+          <div className="col-12 col-lg-9 p-lg-5" >
             <p className="mb-0 ps-lg-5 fw-semibold" style={{ fontSize: "1.4rem" }}>
               Mi piace quando dietro un progetto c’è un filo logico. Per me
               programmare non è solo far funzionare le cose ma farlo bene,
