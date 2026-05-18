@@ -1,14 +1,24 @@
+/* #region RESET */
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+/* #endregion */
+
+/* #region VARIABLES */
+
 :root {
   --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-body: 'Lora', Georgia, 'Times New Roman', serif;
   --bs-body-font-family: var(--font-body);
 }
+
+/* #endregion */
+
+/* #region GENERICS */
 
 body {
   font-family: var(--font-body);
@@ -49,6 +59,10 @@ p,
   font-family: var(--font-body);
 }
 
+/* #endregion */
+
+/* #region UTILS */
+
 .text-secondary {
   color: #f17f1d !important;
 }
@@ -83,3 +97,18 @@ p,
     radial-gradient(at 10% 10%, rgba(241, 127, 29, 0.15) 0px, transparent 50%),
     linear-gradient(135deg, #16191c 0%, #0b0c10 100%);
 }
+
+/* #endregion */
+
+/* #region ANIMATIONS */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* #endregion */

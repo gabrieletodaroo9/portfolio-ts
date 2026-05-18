@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import ProjectCard, { type ProjectWithRelations } from "../components/projects/ProjectCard";
 import ProjectsFilters from "../components/projects/ProjectsFilters";
 import ProjectsHeader from "../components/projects/ProjectsHeader";
+import ProjectsCardsSkeleton from "../components/skeleton/ProjectsCardsSkeleton";
 import { supabase } from "../supabaseClient";
 import { type Tables } from "../types/supabase";
 
 export default function Projectspage() {
-  const [projects, setProjects] = useState<ProjectWithRelations[]>([])
-  const [categories, setCategories] = useState<Tables<"types">[]>([])
-  const [searchTerm, setSearchTerm] = useState("")
-  const [selectedCategoryId, setSelectedCategoryId] = useState("")
-  const [isLoading, setIsLoading] = useState(true)
-  const [errorMessage, setErrorMessage] = useState("")
+  const [projects, setProjects] = useState<ProjectWithRelations[]>([]);
+  const [categories, setCategories] = useState<Tables<"types">[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     async function fetchProjectsPageData() {
@@ -33,46 +34,49 @@ export default function Projectspage() {
                   img_url
                 )
               )
-            `,
+            `
             )
             .order("id", { ascending: false }),
           supabase.from("types").select("*").order("name", { ascending: true }),
-        ])
+        ]);
 
         if (projectsResponse.error) {
-          setErrorMessage("Non e stato possibile caricare i progetti.")
-          console.error(projectsResponse.error)
-          return
+          setErrorMessage("Non è stato possibile caricare i progetti.");
+          console.error(projectsResponse.error);
+          return;
         }
 
         if (categoriesResponse.error) {
-          setErrorMessage("Non e stato possibile caricare le categorie.")
-          console.error(categoriesResponse.error)
-          return
+          setErrorMessage("Non è stato possibile caricare le categorie.");
+          console.error(categoriesResponse.error);
+          return;
         }
 
-        setProjects(projectsResponse.data)
-        setCategories(categoriesResponse.data)
+        setProjects(projectsResponse.data);
+        setCategories(categoriesResponse.data);
       } catch (error) {
-        setErrorMessage("Si e verificato un errore durante il caricamento dei progetti.")
-        console.error(error)
+        setErrorMessage(
+          "Si è verificato un errore durante il caricamento dei progetti."
+        );
+        console.error(error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
-    fetchProjectsPageData()
-  }, [])
+    fetchProjectsPageData();
+  }, []);
 
   const filteredProjects = projects.filter((project) => {
-    const normalizedSearchTerm = searchTerm.trim().toLowerCase()
+    const normalizedSearchTerm = searchTerm.trim().toLowerCase();
     const matchesSearch =
       normalizedSearchTerm.length === 0 ||
-      project.title.toLowerCase().includes(normalizedSearchTerm)
+      project.title.toLowerCase().includes(normalizedSearchTerm);
 
     const matchesCategory =
-      selectedCategoryId.length === 0 || project.type_id === Number(selectedCategoryId)
+      selectedCategoryId.length === 0 ||
+      project.type_id === Number(selectedCategoryId);
 
-    return matchesSearch && matchesCategory
+    return matchesSearch && matchesCategory;
   });
 
   return (
@@ -87,21 +91,27 @@ export default function Projectspage() {
         setSelectedCategoryId={setSelectedCategoryId}
       />
 
-      {isLoading && <div className="alert alert-dark">Caricamento progetti...</div>}
-
-      {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-
-      {!isLoading && !errorMessage && filteredProjects.length === 0 && (
-        <div className="alert alert-light border">Nessun progetto trovato.</div>
+      {errorMessage && (
+        <div className="alert alert-danger">{errorMessage}</div>
       )}
 
-      <div className="row g-5">
-        {filteredProjects.map((project) => (
-          <div key={project.id} className="col-12 col-md-6 col-xl-4">
-            <ProjectCard project={project} />
-          </div>
-        ))}
-      </div>
+      {!isLoading && !errorMessage && filteredProjects.length === 0 && (
+        <div className="alert alert-light border">
+          Nessun progetto trovato.
+        </div>
+      )}
+
+      {isLoading ? (
+        <ProjectsCardsSkeleton />
+      ) : (
+        <div className="row g-5 animate-fade-in">
+          {filteredProjects.map((project) => (
+            <div key={project.id} className="col-12 col-md-6 col-xl-4">
+              <ProjectCard project={project} />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
-  )
+  );
 }

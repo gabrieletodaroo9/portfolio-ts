@@ -1,8 +1,9 @@
+import type React from "react";
 import { Link } from "react-router-dom";
 
 type ButtonLinkProps = {
   to: string;
-  children: string;
+  children: React.ReactNode;
   variant?: "secondary" | "outline-secondary" | "outline-light";
 };
 

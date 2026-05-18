@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Skeleton from "react-loading-skeleton";
 import { baseStorageUrl } from "../../supabaseClient";
+import HeroImageSkeleton from "../skeleton/HeroImageSkeleton";
 import ButtonLink from "../ui/ButtonLink";
 
 const profileImageUrl = `${baseStorageUrl}portfolio-assets/profile/gabriele.webp`;
@@ -25,26 +25,26 @@ export default function HeroSection() {
               progettati per durare.
             </p>
             <div className="d-flex flex-wrap gap-4">
-              <ButtonLink to="/projects">Vedi progetti</ButtonLink>
-              <ButtonLink to="/contact" variant="outline-light">
-                Contattami
+              <ButtonLink to="/contact">Inizia un progetto</ButtonLink>
+              <ButtonLink to="/projects" variant="outline-light">
+                Guarda i miei lavori <i className="bi bi-arrow-right ms-2"></i>
               </ButtonLink>
             </div>
           </div>
 
           <div className="col-12 col-lg-6 text-center pe-5 p-lg-5">
-            <div className="d-inline-block position-relative overflow-hidden border border-5 border-secondary rounded-4">
+            <div
+              className="ratio ratio-1x1 d-inline-block position-relative overflow-hidden border border-5 border-secondary rounded-4"
+              style={{ maxWidth: "400px" }}
+            >
+              {" "}
               {!isImageLoaded && (
-                <Skeleton
-                  className="position-absolute top-0 start-0 w-100 h-100"
-                  borderRadius={0}
-                  containerClassName="d-block h-100"
-                />
+                <HeroImageSkeleton />
               )}
               <img
                 src={profileImageUrl}
                 alt="Gabriele Todaro"
-                className={`d-block img-fluid rounded ${isImageLoaded ? "opacity-100" : "opacity-0"}`}
+                className={`w-100 h-100 object-fit-cover rounded ${isImageLoaded ? "opacity-100" : "opacity-0"}`}
                 onLoad={() => setIsImageLoaded(true)}
                 onError={() => setIsImageLoaded(true)}
               />
