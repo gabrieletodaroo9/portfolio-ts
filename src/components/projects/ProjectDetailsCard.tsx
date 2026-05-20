@@ -71,8 +71,6 @@ export default function ProjectDetailsCard({
 
   const activeMedia =
     selectedMediaSection === "frontend" ? frontendMedia : backendMedia;
-  const activeTitle =
-    selectedMediaSection === "frontend" ? "Frontend" : "Backend";
   const activeDescription =
     selectedMediaSection === "frontend"
       ? project.frontend_description
@@ -131,12 +129,12 @@ export default function ProjectDetailsCard({
         {githubUrl && (
           <a
             href={githubUrl}
-            className="btn btn-outline-secondary fw-semibold"
+            className="btn btn-secondary btn-sm border-0 fw-semibold"
             target="_blank"
             rel="noreferrer"
           >
             <i className="bi bi-github me-2"></i>
-            GitHub {activeTitle}
+             Vedi su GitHub
           </a>
         )}
       </div>
@@ -145,22 +143,22 @@ export default function ProjectDetailsCard({
 
   return (
     <article>
-      <div className="d-flex align-items-center justify-content-between gap-3 mb-4">
-        <Link to="/projects" className="btn border-0 pt-0 btn-outline-secondary">
+      <div className="d-flex align-items-center justify-content-between mb-3 mb-md-4">
+        <Link to="/projects" className="project-back-link btn border-0 pt-0 btn-outline-secondary">
           <i className="bi bi-arrow-left me-2"></i>
           Torna ai progetti
         </Link>
 
         <span
-          className="badge border px-3 py-2 shadow-sm flex-shrink-0"
+          className="badge px-3 py-2 flex-shrink-0 text-uppercase"
           style={{ color: categoryColor, borderColor: categoryColor }}
         >
-          Progetto {categoryName}
+           {categoryName}
         </span>
       </div>
 
       {isFullStack ? (
-        <section className="row g-5 align-items-start mb-5">
+        <section className="row g-5 align-items-center mb-5">
           <div className="col-12 col-md-5">
             <ProjectDetailHeading
               title={project.title}
@@ -168,7 +166,7 @@ export default function ProjectDetailsCard({
             />
 
             {project.project_technology.length > 0 && (
-              <div className="border-top pt-4 mb-4">
+              <div className="border-top pt-4 mb-lg-4">
                 <h2 className="h5 fw-bold mb-3">Tecnologie utilizzate</h2>
                 <ProjectTechnologyIcons
                   technologies={getTechnologyItems(project.project_technology)}
@@ -221,7 +219,7 @@ export default function ProjectDetailsCard({
               />
             </div>
 
-            <div className="col-12 col-lg-7">
+            <div className="col-12 col-lg-7 mt-4 pt-lg-5">
               <ProjectMediaPanel
                 mediaList={singleProjectMedia}
                 carouselTitle={project.title}

@@ -1,10 +1,10 @@
 export default function TermsAndConditionsPage() {
   return (
-    <section className="py-5 text-dark">
+    <section className="py-3 py-lg-5 text-dark">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-lg-8">
-            <div className="p-4 p-lg-5 bg-transparent rounded-4">
+            <div className="p-2 p-lg-5 bg-transparent rounded-4">
               <h1 className="display-6 fw-bold mb-3 text-secondary">Termini e Condizioni</h1>
               
 

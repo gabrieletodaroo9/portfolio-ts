@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProjectDetailsCard, { type ProjectDetailWithRelations } from "../components/projects/ProjectDetailsCard";
+import ProjectDetailPageSkeleton from "../components/skeleton/ProjectDetailPageSkeleton";
 import ErrorPage from "./ErrorPage";
 import NotFoundPage from "./NotFoundPage";
 import { supabase } from "../supabaseClient";
@@ -73,11 +74,7 @@ export default function ProjectDetailPage() {
   }, [slug]);
 
   if (isLoading) {
-    return (
-      <div className="container py-5">
-        <div className="alert alert-dark">Caricamento progetto...</div>
-      </div>
-    );
+    return <ProjectDetailPageSkeleton />;
   }
 
   if (errorMessage || !project) {
@@ -96,7 +93,7 @@ export default function ProjectDetailPage() {
   }
 
   return (
-    <div className="container py-5">
+    <div className="container py-3 py-lg-5">
       <ProjectDetailsCard project={project} />
     </div>
   );

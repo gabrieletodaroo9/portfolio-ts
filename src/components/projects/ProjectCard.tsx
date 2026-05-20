@@ -32,7 +32,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link
       to={`/projects/${project.slug}`}
-      className="text-decoration-none text-reset"
+      className="project-card-link text-decoration-none text-reset"
     >
       <article className="card h-100 border shadow-sm overflow-hidden bg-light rounded-3 d-flex flex-column">
         {project.cover_img_url && (

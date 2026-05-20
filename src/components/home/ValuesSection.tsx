@@ -27,7 +27,7 @@ const valueCards: ValueCard[] = [
 
 function ValueFeatureCard({ iconClass, title, description }: ValueCard) {
   return (
-    <article className="card h-100 border-0 shadow">
+    <article className="card h-100 border-0 shadow rounded-4">
       <div className="card-body d-flex flex-column p-4">
         <div className="text-center">
           <span className="d-inline-flex align-items-center justify-content-center fs-2 pb-1 text-secondary">
@@ -44,9 +44,9 @@ function ValueFeatureCard({ iconClass, title, description }: ValueCard) {
 
 export default function ValuesSection() {
   return (
-    <section className="pt-0 pb-5 mb-4">
+    <section className="pt-0 pb-3 mb-4">
       <div className="container">
-        <div className="row g-5">
+        <div className="row g-3 g-md-4 g-lg-5">
           {valueCards.map((card) => (
             <div key={card.title} className="col-12 col-md-4">
               <ValueFeatureCard {...card} />

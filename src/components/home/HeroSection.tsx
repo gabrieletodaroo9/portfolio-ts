@@ -11,7 +11,7 @@ export default function HeroSection() {
   return (
     <section className="py-5 bg-hero-gradient text-white">
       <div className="container">
-        <div className="row align-items-center g-4">
+        <div className="row align-items-center g-4 g-lg-5">
           <div className="col-12 col-lg-6 ps-lg-5 p-lg-5">
             <h1 className="display-5 fw-bold mb-3">
               Tu porti le <span className="text-secondary">idee</span>.
@@ -24,7 +24,7 @@ export default function HeroSection() {
               scalabile si uniscono per dare vita a progetti solidi, sicuri e
               progettati per durare.
             </p>
-            <div className="d-flex flex-wrap gap-4">
+            <div className="d-flex flex-wrap align-items-center gap-3 gap-lg-4">
               <ButtonLink to="/contact">Inizia un progetto</ButtonLink>
               <ButtonLink to="/projects" variant="outline-light">
                 Guarda i miei lavori <i className="bi bi-arrow-right ms-2"></i>
@@ -32,7 +32,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="col-12 col-lg-6 text-center pe-5 p-lg-5">
+          <div className="col-12 col-lg-6 p-lg-5">
             <div
               className="ratio ratio-1x1 d-inline-block position-relative overflow-hidden border border-5 border-secondary rounded-4"
               style={{ maxWidth: "400px" }}

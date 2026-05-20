@@ -9,8 +9,8 @@ export default function ProjectDetailHeading({
 }: ProjectDetailHeadingProps) {
   return (
     <div className="mb-4">
-      <h1 className="display-3 fw-bold mb-4">{title}</h1>
-      <p className="lead text-dark mb-0">{description}</p>
+      <h1 className="project-detail-title fw-bold mb-3 mb-md-4">{title}</h1>
+      <p className="project-detail-description text-dark mb-0">{description}</p>
     </div>
   );
 }

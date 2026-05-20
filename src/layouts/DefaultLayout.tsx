@@ -32,9 +32,13 @@ export default function DefaultLayout() {
             return;
         }
 
-        setIsContactToastVisible(true);
-        setIsContactToastLeaving(false);
-        navigate(location.pathname, { replace: true });
+        const showToastTimeout = window.setTimeout(() => {
+            setIsContactToastVisible(true);
+            setIsContactToastLeaving(false);
+            navigate(location.pathname, { replace: true });
+        }, 0);
+
+        return () => window.clearTimeout(showToastTimeout);
     }, [location.pathname, location.state, navigate]);
 
     useEffect(() => {
@@ -69,14 +73,14 @@ export default function DefaultLayout() {
                 </div>
             </main>
             {isContactToastVisible && (
-                <div className="position-fixed bottom-0 end-0 p-3 p-md-4" style={{ zIndex: 1080 }} aria-live="polite" aria-atomic="true">
+                <div className="contact-toast-wrapper position-fixed bottom-0 end-0" style={{ zIndex: 1080 }} aria-live="polite" aria-atomic="true">
                     <div className={`contact-toast d-flex align-items-start gap-3 p-3 p-md-4 bg-white border border-secondary rounded-4 shadow-lg ${isContactToastLeaving ? "is-leaving" : ""}`}>
-                        <span className="d-inline-flex align-items-center justify-content-center text-white bg-secondary rounded-circle flex-shrink-0" style={{ width: "42px", height: "42px" }}>
+                        <span className="contact-toast-icon d-inline-flex align-items-center justify-content-center text-white bg-secondary rounded-circle flex-shrink-0">
                             <i className="bi bi-check-lg"></i>
                         </span>
                         <div className="pe-2">
-                            <p className="fw-bold mb-1">Messaggio inviato</p>
-                            <p className="text-muted mb-0">Ho ricevuto la tua richiesta e ti rispondero appena possibile.</p>
+                            <p className="contact-toast-title fw-bold mb-1">Messaggio inviato</p>
+                            <p className="contact-toast-message text-muted mb-0">Ho ricevuto la tua richiesta e ti rispondero appena possibile.</p>
                         </div>
                         <button
                             type="button"

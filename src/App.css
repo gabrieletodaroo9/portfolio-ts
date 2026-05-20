@@ -96,6 +96,134 @@ a:not(.btn):not(.navbar-brand):not(.text-reset):focus-visible {
   z-index: 1;
 }
 
+footer a:not(.btn):hover,
+footer a:not(.btn):focus-visible {
+  color: #f17f1d !important;
+}
+
+/* #endregion */
+
+/* #region CONTACT */
+
+.contact-form .form-control:hover,
+.contact-form .form-check-input:hover {
+  border-color: rgba(241, 127, 29, 0.45);
+}
+
+.contact-form .form-control:focus,
+.contact-form .form-check-input:focus {
+  border-color: rgba(241, 127, 29, 0.7);
+  box-shadow: 0 0 0 0.2rem rgba(241, 127, 29, 0.14);
+}
+
+.contact-form .form-check-input:checked {
+  background-color: #f17f1d;
+  border-color: #f17f1d;
+}
+
+/* #endregion */
+
+/* #region HOME */
+
+.home-thinking-text {
+  font-size: clamp(1rem, 1.35vw, 1.38rem);
+  line-height: 1.75;
+}
+
+/* #endregion */
+
+/* #region HEADER */
+
+.site-header {
+  z-index: 1030;
+}
+
+.navbar-menu-toggle {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0;
+  border-radius: 0.75rem;
+  box-shadow: none !important;
+}
+
+.navbar-menu-toggle:focus,
+.navbar-menu-toggle:focus-visible,
+.navbar-menu-toggle:hover {
+  box-shadow: none !important;
+  outline: 0;
+}
+
+.navbar-menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 999px;
+  background: #0b1626;
+  transition:
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.75s ease,
+    background-color 0.75s ease;
+}
+
+.navbar-menu-toggle:hover span,
+.navbar-menu-toggle:focus-visible span,
+.navbar-menu-toggle.is-open span {
+  background: #f17f1d;
+}
+
+.navbar-menu-toggle.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(42deg);
+}
+
+.navbar-menu-toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-menu-toggle.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-42deg);
+}
+
+.navbar-mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1020;
+  border: 0;
+  background: rgba(11, 22, 38, 0.18);
+  cursor: default;
+}
+
+@media (max-width: 575.98px) {
+  .site-header .navbar-collapse {
+    display: block !important;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-0.35rem);
+    transition:
+      max-height 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.75s ease,
+      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .site-header .navbar-collapse.show {
+    max-height: 260px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header .navbar-collapse,
+  .navbar-menu-toggle span {
+    transition: none;
+  }
+}
+
 /* #endregion */
 
 /* #region PROJECTS FILTERS */
@@ -203,6 +331,43 @@ a:not(.btn):not(.navbar-brand):not(.text-reset):focus-visible {
 
 /* #endregion */
 
+/* #region PROJECT CARDS */
+
+.project-card-link {
+  display: block;
+  height: 100%;
+}
+
+.project-card-link .card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.project-card-link:hover .card,
+.project-card-link:focus-visible .card {
+  box-shadow: 0 0.35rem 0.75rem rgba(15, 23, 42, 0.08) !important;
+  transform: translateY(-2px) scale(1.01);
+}
+
+.project-card-link:active .card {
+  box-shadow: 0 0.22rem 0.5rem rgba(15, 23, 42, 0.09) !important;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card-link .card {
+    transition: none;
+  }
+
+  .project-card-link:hover .card,
+  .project-card-link:active .card {
+    transform: none;
+  }
+}
+
+/* #endregion */
+
 /* #region PROJECT DETAIL */
 
 .project-media-panel-header {
@@ -214,6 +379,25 @@ a:not(.btn):not(.navbar-brand):not(.text-reset):focus-visible {
   border: 0;
   border-radius: 0;
   box-shadow: none;
+}
+
+.project-back-link {
+  box-shadow: none !important;
+}
+
+.project-back-link .bi-arrow-left {
+  display: inline-block;
+  transition: transform 0.18s ease;
+}
+
+.project-detail-title {
+  font-size: clamp(2.35rem, 4vw, 3.5rem);
+  line-height: 1.05;
+}
+
+.project-detail-description {
+  font-size: clamp(0.98rem, 1.25vw, 1.13rem);
+  line-height: 1.7;
 }
 
 .project-media-panel-content {
@@ -246,7 +430,7 @@ a:not(.btn):not(.navbar-brand):not(.text-reset):focus-visible {
   left: 0.35rem;
   z-index: 0;
   width: calc(50% - 0.35rem);
-  border-radius: 0.65rem;
+  border-radius: 0.55rem;
   background: #f17f1d;
   box-shadow: 0 0.45rem 1rem rgba(241, 127, 29, 0.28);
   content: "";
@@ -375,6 +559,20 @@ a:not(.btn):not(.navbar-brand):not(.text-reset):focus-visible {
   box-shadow: 0 0.55rem 0.9rem rgba(167, 172, 182, 0.12) !important;
 }
 
+.btn.project-back-link:hover,
+.btn.project-back-link:focus-visible {
+  background-color: transparent !important;
+  border-color: transparent !important;
+  color: #f17f1d !important;
+  box-shadow: none !important;
+  transform: translateY(-1px) scale(1.025);
+}
+
+.btn.project-back-link:hover .bi-arrow-left,
+.btn.project-back-link:focus-visible .bi-arrow-left {
+  transform: translateX(-3px);
+}
+
 .bg-blur{
   background-color: rgba(255, 255, 255, 0.8) !important;
   backdrop-filter: blur(20px);
@@ -399,6 +597,10 @@ a:not(.btn):not(.navbar-brand):not(.text-reset):focus-visible {
   animation: fadeIn 0.3s ease-in-out;
 }
 
+.contact-toast-wrapper {
+  padding: 0.75rem;
+}
+
 .contact-toast {
   animation: toastSlideIn 0.32s ease both;
   max-width: min(420px, calc(100vw - 2rem));
@@ -406,6 +608,46 @@ a:not(.btn):not(.navbar-brand):not(.text-reset):focus-visible {
 
 .contact-toast.is-leaving {
   animation: toastSlideOut 0.32s ease both;
+}
+
+.contact-toast-icon {
+  width: 42px;
+  height: 42px;
+}
+
+.contact-toast-title {
+  font-size: 1rem;
+}
+
+.contact-toast-message {
+  font-size: 0.95rem;
+}
+
+@media (max-width: 575.98px) {
+  .contact-toast-wrapper {
+    padding: 0.5rem;
+  }
+
+  .contact-toast {
+    max-width: min(340px, calc(100vw - 1rem));
+    gap: 0.65rem !important;
+    border-radius: 1rem !important;
+  }
+
+  .contact-toast-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
+  }
+
+  .contact-toast-title {
+    font-size: 0.9rem;
+  }
+
+  .contact-toast-message {
+    font-size: 0.8rem;
+    line-height: 1.35;
+  }
 }
 
 @keyframes toastSlideIn {

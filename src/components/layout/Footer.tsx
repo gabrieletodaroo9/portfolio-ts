@@ -65,8 +65,8 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Gabriele T. Tutti i diritti riservati.
           </p>
           <div className="d-flex flex-column flex-sm-row gap-3">
-            <Link to="/privacy-policy" className="text-white-50 text-decoration-none">
-              Privacy Policy
+            <Link to="/privacy" className="text-white-50 text-decoration-none">
+              Privacy
             </Link>
             <Link to="/terms-and-conditions" className="text-white-50 text-decoration-none">
               Termini e Condizioni

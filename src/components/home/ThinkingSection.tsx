@@ -68,9 +68,9 @@ export default function ThinkingSection() {
   }, []);
 
   return (
-    <section className="py-3 pt-lg-5 pb-lg-4 mb-0">
-      <div className="container py-lg-5">
-        <div className="row g-4 align-items-center">
+    <section className="py-4 py-lg-5 mb-0">
+      <div className="container py-lg-4">
+        <div className="row g-4 g-lg-5 align-items-center">
           <div className="col-12 col-lg-3">
             {errorMessage && (
               <div className="alert alert-danger">{errorMessage}</div>
@@ -87,9 +87,9 @@ export default function ThinkingSection() {
             )}
           </div>
 
-          <div className="col-12 col-lg-9 p-lg-5">
+          <div className="col-12 col-lg-9 p-lg-4">
             <article
-              className="position-relative rounded-5 overflow-hidden ms-lg-5 p-4 p-lg-5 bg-white shadow-sm"
+              className="position-relative rounded-5 overflow-hidden ms-lg-4 p-4 p-lg-5 mb-4 bg-white shadow-sm"
               style={{
                 borderLeft: "5px solid #f17f1d",
                 borderTop: "1px solid rgba(22, 25, 28, 0.08)",
@@ -97,10 +97,7 @@ export default function ThinkingSection() {
                 borderBottom: "1px solid rgba(22, 25, 28, 0.08)",
               }}
             >
-              <p
-                className="mb-0 fw-semibold text-dark-emphasis"
-                style={{ fontSize: "1.4rem", lineHeight: "1.85" }}
-              >
+              <p className="home-thinking-text mb-0 fw-semibold text-dark-emphasis">
                 Mi piace quando dietro un progetto c'è un filo logico. Per me
                 programmare non è solo far funzionare le cose ma farlo bene,
                 scrivendo codice pulito e organizzando il lavoro perché tutto

@@ -100,11 +100,11 @@ export default function Contactpage() {
   }
 
   return (
-    <section className="py-5 text-dark">
+    <section className="py-3 py-lg-5 text-dark">
       <div className="container">
         <div className="row align-items-stretch g-4">
           <div className="col-12 col-lg-5">
-            <div className="h-100 d-flex flex-column justify-content-between p-4 p-lg-5 bg-transparent">
+            <div className="h-100 d-flex flex-column justify-content-between p-lg-4 p-lg-5 bg-transparent">
               <div>
                 <h1 className="display-5 fw-bold mb-3">Definiamo insieme come implementare le tue <span className="text-secondary">idee</span>.</h1>
                 <p className="lead text-dark mb-4">
@@ -143,7 +143,7 @@ export default function Contactpage() {
 
           <div className="col-12 col-lg-7 p-4 p-lg-5">
             <div className="p-4 p-lg-5 bg-white text-dark rounded-4 shadow-lg">
-              <form onSubmit={handleSubmit}>
+              <form className="contact-form" onSubmit={handleSubmit}>
                 {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
                 <div className="row g-3">
                   <div className="col-12 col-md-6">
@@ -180,7 +180,7 @@ export default function Contactpage() {
 
                   <div className="col-12">
                     <label htmlFor="message" className="form-label fw-semibold">
-                      Dettagli della richiesta
+                      Messaggio
                     </label>
                     <textarea
                       id="message"
@@ -195,7 +195,7 @@ export default function Contactpage() {
                   </div>
                 </div>
 
-                <div className="form-check my-4">
+                <div className="form-check my-3 my-lg-4">
                   <input
                     id="privacyAccepted"
                     name="privacy_accepted"
@@ -212,7 +212,7 @@ export default function Contactpage() {
 
                 <button
                   type="submit"
-                  className="btn btn-secondary btn-lg w-100 fw-semibold"
+                  className="btn btn-secondary w-100 fw-semibold"
                   disabled={isLoading || !formData.privacyAccepted}
                 >
                   {isLoading ? (
