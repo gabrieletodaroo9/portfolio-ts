@@ -59,6 +59,21 @@ p,
   font-family: var(--font-body);
 }
 
+a:not(.btn):not(.navbar-brand):not(.text-reset) {
+  display: inline-block;
+  transform-origin: center;
+  transition:
+    transform 0.18s ease,
+    color 0.18s ease,
+    opacity 0.18s ease;
+}
+
+a:not(.btn):not(.navbar-brand):not(.text-reset):hover,
+a:not(.btn):not(.navbar-brand):not(.text-reset):focus-visible {
+  transform: scale(1.025);
+  translate: 0 -1px;
+}
+
 .site-main {
   position: relative;
   overflow: hidden;
@@ -303,14 +318,61 @@ p,
   border-color: #f17f1d !important;
 }
 
+.btn {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.btn:hover {
+  box-shadow: 0 0.42rem 0.9rem rgba(15, 23, 42, 0.11);
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  box-shadow: 0 0.22rem 0.5rem rgba(15, 23, 42, 0.09);
+  transform: translateY(0);
+}
+
+.btn:disabled,
+.btn.disabled {
+  box-shadow: none;
+  transform: none;
+}
+
+.btn-secondary {
+  color: #fff !important;
+  box-shadow: 0 0.18rem 0.45rem rgba(241, 127, 29, 0.14);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  background-color: #ec7819 !important;
+  border-color: #ec7819 !important;
+  color: #fff !important;
+  box-shadow: 0 0.45rem 0.9rem rgba(241, 127, 29, 0.18) !important;
+}
+
 .btn-outline-secondary {
   color: #f17f1d !important;
   border-color: #f17f1d !important;
-  &:hover {
-    color: white !important;
-    background-color: #f17f1d !important;
-    box-shadow: 0 0 0 0.25rem rgba(240, 195, 155, 0.2) !important;
-  }
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus-visible {
+  color: white !important;
+  background-color: #f17b1b !important;
+  border-color: #f17b1b !important;
+  box-shadow: 0 0.45rem 0.9rem rgba(241, 127, 29, 0.26) !important;
+}
+
+.btn-outline-light:hover,
+.btn-outline-light:focus-visible {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  box-shadow: 0 0.55rem 0.9rem rgba(167, 172, 182, 0.12) !important;
 }
 
 .bg-blur{
@@ -371,9 +433,16 @@ p,
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .btn,
   .contact-toast,
   .contact-toast.is-leaving {
     animation: none;
+    transition: none;
+  }
+
+  .btn:hover,
+  .btn:active {
+    transform: none;
   }
 }
 
