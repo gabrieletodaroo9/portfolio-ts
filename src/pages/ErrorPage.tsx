@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Seo from "../components/seo/Seo";
 
 type ErrorPageProps = {
   title?: string;
@@ -14,8 +15,15 @@ export default function ErrorPage({
   backLabel = "Torna alla home",
 }: ErrorPageProps) {
   return (
-    <section className="flex-grow-1 d-flex align-items-center py-5 text-dark">
-      <div className="container">
+    <>
+      <Seo
+        title={`${title} | Gabriele Todaro`}
+        description={message}
+        path="/error"
+      />
+
+      <section className="flex-grow-1 d-flex align-items-center py-5 text-dark">
+        <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-lg-8">
             <div className="p-4 p-lg-5 bg-transparent rounded-4 text-center">
@@ -34,7 +42,8 @@ export default function ErrorPage({
             </div>
           </div>
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }

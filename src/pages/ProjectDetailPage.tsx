@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ProjectDetailsCard, { type ProjectDetailWithRelations } from "../components/projects/ProjectDetailsCard";
+import Seo from "../components/seo/Seo";
 import ProjectDetailPageSkeleton from "../components/skeleton/ProjectDetailPageSkeleton";
 import ErrorPage from "./ErrorPage";
 import NotFoundPage from "./NotFoundPage";
-import { supabase } from "../supabaseClient";
+import { getPublicStorageUrl, supabase } from "../supabaseClient";
 
 export default function ProjectDetailPage() {
   const { slug } = useParams();
@@ -93,8 +94,17 @@ export default function ProjectDetailPage() {
   }
 
   return (
-    <div className="container py-3 py-lg-5">
-      <ProjectDetailsCard project={project} />
-    </div>
+    <>
+      <Seo
+        title={`${project.title} | Progetto di Gabriele Todaro`}
+        description={project.description}
+        path={`/projects/${project.slug}`}
+        imageUrl={project.cover_img_url ? getPublicStorageUrl(project.cover_img_url) : undefined}
+      />
+
+      <div className="container py-3 py-lg-5">
+        <ProjectDetailsCard project={project} />
+      </div>
+    </>
   );
 }

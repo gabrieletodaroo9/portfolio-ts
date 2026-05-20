@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Seo from "../components/seo/Seo";
 
 type ContactForm = {
   fullName: string;
@@ -100,8 +101,15 @@ export default function Contactpage() {
   }
 
   return (
-    <section className="py-3 py-lg-5 text-dark">
-      <div className="container">
+    <>
+      <Seo
+        title="Contatti | Gabriele Todaro"
+        description="Contatta Gabriele Todaro per parlare del tuo progetto web, ricevere una prima analisi e valutare una collaborazione full-stack."
+        path="/contact"
+      />
+
+      <section className="py-3 py-lg-5 text-dark">
+        <div className="container">
         <div className="row align-items-stretch g-4">
           <div className="col-12 col-lg-5">
             <div className="h-100 d-flex flex-column justify-content-between p-lg-4 p-lg-5 bg-transparent">
@@ -231,7 +239,8 @@ export default function Contactpage() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ProjectCard, { type ProjectWithRelations } from "../components/projects/ProjectCard";
 import ProjectsFilters from "../components/projects/ProjectsFilters";
 import ProjectsHeader from "../components/projects/ProjectsHeader";
+import Seo from "../components/seo/Seo";
 import ProjectsCardsSkeleton from "../components/skeleton/ProjectsCardsSkeleton";
 import ErrorPage from "./ErrorPage";
 import { supabase } from "../supabaseClient";
@@ -92,34 +93,42 @@ export default function Projectspage() {
   }
 
   return (
-    <div className="container py-4">
-      <ProjectsHeader />
-
-      <ProjectsFilters
-        categories={categories}
-        searchTerm={searchTerm}
-        selectedCategoryId={selectedCategoryId}
-        setSearchTerm={setSearchTerm}
-        setSelectedCategoryId={setSelectedCategoryId}
+    <>
+      <Seo
+        title="Progetti | Gabriele Todaro"
+        description="Una selezione di progetti web realizzati da Gabriele Todaro, con focus su React, TypeScript, Laravel, backend solidi e interfacce curate."
+        path="/projects"
       />
 
-      {!isLoading && !errorMessage && filteredProjects.length === 0 && (
-        <div className="alert alert-light border">
-          Nessun progetto trovato.
-        </div>
-      )}
+      <div className="container py-4">
+        <ProjectsHeader />
 
-      {isLoading ? (
-        <ProjectsCardsSkeleton />
-      ) : (
-        <div className="row g-3 g-md-4 g-lg-5 pt-2 pb-2 mb-2 animate-fade-in">
-          {filteredProjects.map((project) => (
-            <div key={project.id} className="col-12 col-md-6 col-xl-4">
-              <ProjectCard project={project} />
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+        <ProjectsFilters
+          categories={categories}
+          searchTerm={searchTerm}
+          selectedCategoryId={selectedCategoryId}
+          setSearchTerm={setSearchTerm}
+          setSelectedCategoryId={setSelectedCategoryId}
+        />
+
+        {!isLoading && !errorMessage && filteredProjects.length === 0 && (
+          <div className="alert alert-light border">
+            Nessun progetto trovato.
+          </div>
+        )}
+
+        {isLoading ? (
+          <ProjectsCardsSkeleton />
+        ) : (
+          <div className="row g-3 g-md-4 g-lg-5 pt-2 pb-2 mb-2 animate-fade-in">
+            {filteredProjects.map((project) => (
+              <div key={project.id} className="col-12 col-md-6 col-xl-4">
+                <ProjectCard project={project} />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   );
 }

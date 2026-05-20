@@ -1,9 +1,17 @@
 import { Link } from "react-router-dom";
+import Seo from "../components/seo/Seo";
 
 export default function NotFoundPage() {
   return (
-    <section className="flex-grow-1 d-flex align-items-center py-5 text-dark">
-      <div className="container">
+    <>
+      <Seo
+        title="Pagina non trovata | Gabriele Todaro"
+        description="La pagina richiesta non esiste o non e piu disponibile. Torna alla home o visita la sezione progetti del portfolio."
+        path="/404"
+      />
+
+      <section className="flex-grow-1 d-flex align-items-center py-5 text-dark">
+        <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-lg-8">
             <div className="p-4 p-lg-5 bg-transparent rounded-4 text-center">
@@ -24,7 +32,8 @@ export default function NotFoundPage() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }

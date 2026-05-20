@@ -7,7 +7,7 @@ type SeoProps = {
   imageUrl?: string;
 };
 
-const fallbackSiteUrl = "https://tuo-dominio.it";
+const fallbackSiteUrl = "https://gabrieletodaro-dev.it";
 
 function getSiteUrl() {
   const configuredSiteUrl = import.meta.env.VITE_SITE_URL as string | undefined;

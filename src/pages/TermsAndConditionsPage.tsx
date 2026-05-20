@@ -1,7 +1,16 @@
+import Seo from "../components/seo/Seo";
+
 export default function TermsAndConditionsPage() {
   return (
-    <section className="py-3 py-lg-5 text-dark">
-      <div className="container">
+    <>
+      <Seo
+        title="Termini e Condizioni | Gabriele Todaro"
+        description="Termini e condizioni del portfolio di Gabriele Todaro: uso dei contenuti, immagini, progetti pubblicati e richieste inviate dal sito."
+        path="/terms-and-conditions"
+      />
+
+      <section className="py-3 py-lg-5 text-dark">
+        <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-lg-8">
             <div className="p-2 p-lg-5 bg-transparent rounded-4">
@@ -27,7 +36,8 @@ export default function TermsAndConditionsPage() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }

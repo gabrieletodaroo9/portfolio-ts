@@ -1,7 +1,16 @@
+import Seo from "../components/seo/Seo";
+
 export default function PrivacyPage() {
   return (
-    <section className="py-3 py-lg-5 text-dark">
-      <div className="container">
+    <>
+      <Seo
+        title="Privacy | Gabriele Todaro"
+        description="Informativa privacy del portfolio di Gabriele Todaro: dati raccolti tramite il modulo contatti, finalita, conservazione e diritti."
+        path="/privacy"
+      />
+
+      <section className="py-3 py-lg-5 text-dark">
+        <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-lg-8">
             <div className="p-2 p-lg-4 p-lg-5 bg-transparent rounded-4">
@@ -36,7 +45,8 @@ export default function PrivacyPage() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 }
