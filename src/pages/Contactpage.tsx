@@ -87,9 +87,9 @@ export default function Contactpage() {
         message: "",
         privacyAccepted: false,
       });
-      navigate("/contact/success", {
+      navigate("/", {
         state: {
-          fullName: formData.fullName,
+          contactMessageSent: true,
         },
       });
     } catch {
@@ -100,90 +100,138 @@ export default function Contactpage() {
   }
 
   return (
-    <section className="py-5">
+    <section className="py-5 text-dark">
       <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-12 col-lg-7">
-            <div className="text-center mb-5">
-              <h1 className="display-5 fw-bold mb-3">Definiamo insieme come implementare le tue idee.</h1>
-              <p className="lead text-dark mb-0">
-                Parlami del tuo progetto e capiremo subito come trasformare i tuoi requisiti in un'architettura digitale pronta.
-              </p>
+        <div className="row align-items-stretch g-4">
+          <div className="col-12 col-lg-5">
+            <div className="h-100 d-flex flex-column justify-content-between p-4 p-lg-5 bg-transparent">
+              <div>
+                <h1 className="display-5 fw-bold mb-3">Definiamo insieme come implementare le tue <span className="text-secondary">idee</span>.</h1>
+                <p className="lead text-dark mb-4">
+                  Parlami del tuo progetto e capiremo subito come trasformare i tuoi requisiti in un'architettura digitale pronta.
+                </p>
+              </div>
+
+              <div className="d-grid gap-3">
+
+                <div className="d-flex gap-3">
+                  <span className="text-secondary fs-4">
+                    <i className="bi bi-diagram-3"></i>
+                  </span>
+                  <div>
+                    <h2 className="h6 fw-bold mb-1">Prima analisi chiara</h2>
+                    <p className="text-dark mb-0">
+                      Scrivi obiettivi, funzionalita e priorita del tuo progetto. Ti rispondero con un'analisi dettagliata di come realizzarlo al meglio, con stima dei tempi e dei costi.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="d-flex gap-3">
+                  <span className="text-secondary fs-4">
+                    <i className="bi bi-shield-check"></i>
+                  </span>
+                  <div>
+                    <h2 className="h6 fw-bold mb-1">Dati protetti</h2>
+                    <p className="text-dark mb-0">
+                      Usero le informazioni inviate solo per ricontattarti riguardo alla richiesta.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
 
-            <form onSubmit={handleSubmit}>
-              {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-              <div className="mb-3">
-                <label htmlFor="fullName" className="form-label">
-                  Nome completo
-                </label>
-                <input
-                  id="fullName"
-                  name="name"
-                  type="text"
-                  className="form-control"
-                  required
-                  value={formData.fullName}
-                  onChange={(event) => updateField("fullName", event.target.value)}
-                />
-              </div>
+          <div className="col-12 col-lg-7 p-4 p-lg-5">
+            <div className="p-4 p-lg-5 bg-white text-dark rounded-4 shadow-lg">
+              <form onSubmit={handleSubmit}>
+                {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+                <div className="row g-3">
+                  <div className="col-12 col-md-6">
+                    <label htmlFor="fullName" className="form-label fw-semibold">
+                      Nome completo
+                    </label>
+                    <input
+                      id="fullName"
+                      name="name"
+                      type="text"
+                      className="form-control form-control-sm-sm form-control-lg-lg"
+                      placeholder="Es. Mario Rossi"
+                      required
+                      value={formData.fullName}
+                      onChange={(event) => updateField("fullName", event.target.value)}
+                    />
+                  </div>
 
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  className="form-control"
-                  required
-                  value={formData.email}
-                  onChange={(event) => updateField("email", event.target.value)}
-                />
-              </div>
+                  <div className="col-12 col-md-6">
+                    <label htmlFor="email" className="form-label fw-semibold">
+                      Email
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      className="form-control form-control-sm-sm form-control-lg-lg"
+                      placeholder="nome@email.com"
+                      required
+                      value={formData.email}
+                      onChange={(event) => updateField("email", event.target.value)}
+                    />
+                  </div>
 
-              <div className="mb-3">
-                <label htmlFor="message" className="form-label">
-                  Dettagli della richiesta
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  className="form-control"
-                  rows={6}
-                  required
-                  value={formData.message}
-                  onChange={(event) => updateField("message", event.target.value)}
-                ></textarea>
-              </div>
+                  <div className="col-12">
+                    <label htmlFor="message" className="form-label fw-semibold">
+                      Dettagli della richiesta
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      className="form-control form-control-sm-sm form-control-lg-lg"
+                      rows={3}
+                      placeholder="Descrivi qui la tua richiesta..."
+                      required
+                      value={formData.message}
+                      onChange={(event) => updateField("message", event.target.value)}
+                    ></textarea>
+                  </div>
+                </div>
 
-              <div className="form-check mb-4">
-                <input
-                  id="privacyAccepted"
-                  name="privacy_accepted"
-                  type="checkbox"
-                  className="form-check-input"
-                  required
-                  checked={formData.privacyAccepted}
-                  onChange={(event) => updateField("privacyAccepted", event.target.checked)}
-                />
-                <label htmlFor="privacyAccepted" className="form-check-label">
-                  Dichiaro di aver letto e accettato la Privacy Policy e acconsento al trattamento dei miei dati personali.
-                </label>
-              </div>
+                <div className="form-check my-4">
+                  <input
+                    id="privacyAccepted"
+                    name="privacy_accepted"
+                    type="checkbox"
+                    className="form-check-input"
+                    required
+                    checked={formData.privacyAccepted}
+                    onChange={(event) => updateField("privacyAccepted", event.target.checked)}
+                  />
+                  <label htmlFor="privacyAccepted" className="form-check-label">
+                    Dichiaro di aver letto e accettato la Privacy Policy e acconsento al trattamento dei miei dati personali.
+                  </label>
+                </div>
 
-              <button
-                type="submit"
-                className="btn btn-secondary w-100 fw-semibold"
-                disabled={isLoading || !formData.privacyAccepted}
-              >
-                {isLoading ? "Invio in corso..." : "Invia richiesta"}
-              </button>
-            </form>
+                <button
+                  type="submit"
+                  className="btn btn-secondary btn-lg w-100 fw-semibold"
+                  disabled={isLoading || !formData.privacyAccepted}
+                >
+                  {isLoading ? (
+                    <>
+                      <span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                      Invio in corso...
+                    </>
+                  ) : (
+                    <>
+                      Invia richiesta
+                      <i className="bi bi-send ms-2"></i>
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

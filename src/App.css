@@ -337,4 +337,44 @@ p,
   animation: fadeIn 0.3s ease-in-out;
 }
 
+.contact-toast {
+  animation: toastSlideIn 0.32s ease both;
+  max-width: min(420px, calc(100vw - 2rem));
+}
+
+.contact-toast.is-leaving {
+  animation: toastSlideOut 0.32s ease both;
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-toast,
+  .contact-toast.is-leaving {
+    animation: none;
+  }
+}
+
 /* #endregion */

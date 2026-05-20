@@ -3,6 +3,7 @@ import ProjectCard, { type ProjectWithRelations } from "../components/projects/P
 import ProjectsFilters from "../components/projects/ProjectsFilters";
 import ProjectsHeader from "../components/projects/ProjectsHeader";
 import ProjectsCardsSkeleton from "../components/skeleton/ProjectsCardsSkeleton";
+import ErrorPage from "./ErrorPage";
 import { supabase } from "../supabaseClient";
 import { type Tables } from "../types/supabase";
 
@@ -79,6 +80,17 @@ export default function Projectspage() {
     return matchesSearch && matchesCategory;
   });
 
+  if (!isLoading && errorMessage) {
+    return (
+      <ErrorPage
+        title="Non e stato possibile caricare i progetti."
+        message={errorMessage}
+        backTo="/"
+        backLabel="Torna alla home"
+      />
+    );
+  }
+
   return (
     <div className="container py-4">
       <ProjectsHeader />
@@ -90,10 +102,6 @@ export default function Projectspage() {
         setSearchTerm={setSearchTerm}
         setSelectedCategoryId={setSelectedCategoryId}
       />
-
-      {errorMessage && (
-        <div className="alert alert-danger">{errorMessage}</div>
-      )}
 
       {!isLoading && !errorMessage && filteredProjects.length === 0 && (
         <div className="alert alert-light border">

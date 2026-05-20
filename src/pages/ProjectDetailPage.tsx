@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ProjectDetailsCard, { type ProjectDetailWithRelations } from "../components/projects/ProjectDetailsCard";
+import ErrorPage from "./ErrorPage";
+import NotFoundPage from "./NotFoundPage";
 import { supabase } from "../supabaseClient";
 
 export default function ProjectDetailPage() {
@@ -48,6 +50,11 @@ export default function ProjectDetailPage() {
           .single();
 
         if (error) {
+          if (error.code === "PGRST116") {
+            setErrorMessage("Progetto non trovato.");
+            return;
+          }
+
           setErrorMessage("Non e stato possibile caricare il progetto.");
           console.error(error);
           return;
@@ -74,13 +81,17 @@ export default function ProjectDetailPage() {
   }
 
   if (errorMessage || !project) {
+    if (errorMessage === "Progetto non trovato.") {
+      return <NotFoundPage />;
+    }
+
     return (
-      <div className="container py-5">
-        <div className="alert alert-danger">{errorMessage || "Progetto non trovato."}</div>
-        <Link to="/projects" className="btn btn-outline-secondary">
-          Torna ai progetti
-        </Link>
-      </div>
+      <ErrorPage
+        title="Non e stato possibile caricare il progetto."
+        message={errorMessage || "Il progetto richiesto non e disponibile in questo momento."}
+        backTo="/projects"
+        backLabel="Torna ai progetti"
+      />
     );
   }
 

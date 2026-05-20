@@ -8,7 +8,10 @@ import Homepage from './pages/Homepage';
 import Projectspage from './pages/Projectspage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 import Contactpage from './pages/Contactpage';
-import ContactSuccessPage from './pages/ContactSuccessPage';
+import ErrorPage from './pages/ErrorPage';
+import NotFoundPage from './pages/NotFoundPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsAndConditionsPage from './pages/TermsAndConditionsPage';
 
 
 export default function App() {
@@ -23,7 +26,10 @@ export default function App() {
         <Route path="/projects" element={<Projectspage />} />
         <Route path="/projects/:slug" element={<ProjectDetailPage />} />
         <Route path="/contact" element={<Contactpage />} />
-        <Route path="/contact/success" element={<ContactSuccessPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
+        <Route path="/error" element={<ErrorPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
      </Routes>
     </BrowserRouter>
