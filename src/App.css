@@ -410,6 +410,146 @@ footer a:not(.btn):focus-visible {
   background: #eef1f5;
 }
 
+.project-media-open-button {
+  cursor: zoom-in;
+}
+
+.project-media-open-button:focus-visible {
+  outline: 0;
+  box-shadow: inset 0 0 0 0.2rem rgba(241, 127, 29, 0.4);
+}
+
+.project-media-expand-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(241, 127, 29, 0.35);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: #f17f1d;
+  font-size: 0.95rem;
+  transform: translate(-50%, -50%) !important;
+}
+
+.project-media-expand-button:hover,
+.project-media-expand-button:focus-visible,
+.project-media-expand-button:active {
+  background: #f17f1d;
+  color: #fff;
+  transform: translate(-50%, -50%) scale(1.08) !important;
+}
+
+.project-media-carousel-arrow:hover,
+.project-media-carousel-arrow:focus-visible,
+.project-media-carousel-arrow:active {
+  box-shadow: none !important;
+  transform: scale(1.08);
+}
+
+.project-media-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1060;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  background: rgba(11, 22, 38, 0.42);
+  backdrop-filter: blur(3px);
+  animation: fadeIn 0.18s ease both;
+  cursor: zoom-out;
+}
+
+.project-media-lightbox-close {
+  position: fixed;
+  top: clamp(0.65rem, 2vw, 1rem);
+  right: clamp(0.65rem, 2vw, 1rem);
+  z-index: 1;
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 0.95rem;
+  box-shadow: none;
+  text-shadow: 0 0.12rem 0.4rem rgba(11, 22, 38, 0.65);
+}
+
+.project-media-lightbox-close:hover,
+.project-media-lightbox-close:focus-visible {
+  background: transparent;
+  color: #f17f1d;
+  box-shadow: none;
+}
+
+.project-media-lightbox-arrow {
+  position: fixed;
+  top: 50%;
+  z-index: 1;
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 0.95rem;
+  box-shadow: none;
+  transform: translateY(-50%) !important;
+}
+
+.project-media-lightbox-arrow-left {
+  left: clamp(0.65rem, 2vw, 1rem);
+}
+
+.project-media-lightbox-arrow-right {
+  right: clamp(0.65rem, 2vw, 1rem);
+}
+
+.project-media-lightbox-arrow:hover,
+.project-media-lightbox-arrow:focus-visible,
+.project-media-lightbox-arrow:active {
+  background: transparent;
+  color: #f17f1d;
+  box-shadow: none !important;
+  transform: translateY(-50%) scale(1.38) !important;
+}
+
+.project-media-lightbox-media {
+  max-width: min(92vw, 1180px);
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 0.5rem;
+  box-shadow: 0 1rem 2.5rem rgba(11, 22, 38, 0.28);
+  cursor: default;
+}
+
+@media (min-width: 768px) {
+  .project-media-lightbox-arrow {
+    width: 44px;
+    height: 44px;
+    font-size: 1.35rem;
+  }
+
+  .project-media-lightbox-arrow-left {
+    left: clamp(2.5rem, 8vw, 7rem);
+  }
+
+  .project-media-lightbox-arrow-right {
+    right: clamp(2.5rem, 8vw, 7rem);
+  }
+}
+
 .project-section-switch {
   position: relative;
   display: grid;
@@ -465,6 +605,7 @@ footer a:not(.btn):focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .project-media-panel-content,
+  .project-media-lightbox,
   .project-section-switch::before,
   .project-section-switch-option {
     animation: none;

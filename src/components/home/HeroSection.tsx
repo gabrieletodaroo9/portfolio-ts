@@ -32,7 +32,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="col-12 col-lg-6 text-center p-lg-5">
+          <div className="col-12 col-lg-6 p-lg-5">
             <div
               className="ratio ratio-1x1 d-inline-block position-relative overflow-hidden border border-5 border-secondary rounded-4"
               style={{ maxWidth: "400px" }}
