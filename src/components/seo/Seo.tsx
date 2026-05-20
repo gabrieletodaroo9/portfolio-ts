@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { getPublicStorageUrl } from "../../supabaseClient";
 
 type SeoProps = {
   title: string;
@@ -8,6 +9,7 @@ type SeoProps = {
 };
 
 const fallbackSiteUrl = "https://gabrieletodaro-dev.it";
+const defaultSeoImageUrl = getPublicStorageUrl("portfolio-assets/profile/gabriele.webp");
 
 function getSiteUrl() {
   const configuredSiteUrl = import.meta.env.VITE_SITE_URL as string | undefined;
@@ -25,6 +27,7 @@ export default function Seo({
   const siteUrl = getSiteUrl();
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
   const canonicalUrl = `${siteUrl}${normalizedPath}`;
+  const seoImageUrl = imageUrl || defaultSeoImageUrl;
 
   return (
     <Helmet>
@@ -37,12 +40,12 @@ export default function Seo({
       <meta property="og:description" content={description} />
       <meta property="og:url" content={canonicalUrl} />
 
-      {imageUrl && <meta property="og:image" content={imageUrl} />}
+      <meta property="og:image" content={seoImageUrl} />
 
-      <meta name="twitter:card" content={imageUrl ? "summary_large_image" : "summary"} />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+      <meta name="twitter:image" content={seoImageUrl} />
     </Helmet>
   );
 }
