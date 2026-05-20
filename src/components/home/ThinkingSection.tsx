@@ -24,6 +24,7 @@ function TechnologyIcon({
         <img
           src={getPublicStorageUrl(technology.img_url)}
           alt={technology.name}
+          loading="lazy"
           style={{ height: "60px", width: "60px" }}
           className={`object-fit-contain transition-opacity ${
             isImgLoaded ? "opacity-100" : "opacity-0"

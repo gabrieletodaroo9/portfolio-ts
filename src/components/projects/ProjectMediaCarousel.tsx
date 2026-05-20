@@ -65,6 +65,7 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
             <img
               src={getPublicStorageUrl(activeMedia.file_path)}
               alt={title}
+              loading="lazy"
               className="position-absolute top-0 start-0 w-100 h-100 object-fit-contain"
               style={{
                 opacity: isMediaLoaded ? 1 : 0,

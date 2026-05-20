@@ -25,6 +25,7 @@ export function ProjectTechnologyIcons({
               className="object-fit-contain"
               src={getPublicStorageUrl(technology.img_url)}
               alt={technology.name}
+              loading="lazy"
               width={24}
               height={24}
             />
