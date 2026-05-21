@@ -159,7 +159,7 @@ export default function ProjectDetailsCard({
       </div>
 
       {isFullStack ? (
-        <section className="row g-5 align-items-center mb-5">
+        <section className="row gx-0 gy-5 gx-md-5 align-items-center mb-5">
           <div className="col-12 col-md-5">
             <ProjectDetailHeading
               title={project.title}
@@ -180,7 +180,7 @@ export default function ProjectDetailsCard({
             />
           </div>
 
-          <div className="col-12 col-md-7">
+          <div className="project-detail-media-column col-12 col-md-7">
             <ProjectMediaPanel
               mediaList={activeMedia}
               carouselTitle={`${project.title} ${selectedMediaSection}`}
@@ -192,7 +192,7 @@ export default function ProjectDetailsCard({
         </section>
       ) : (
         <section className="mb-5">
-          <div className="row g-5 align-items-start">
+          <div className="row gx-0 gy-5 gx-lg-5 align-items-start">
             <div className="col-12 col-lg-5">
               <ProjectDetailHeading
                 title={project.title}
@@ -220,7 +220,7 @@ export default function ProjectDetailsCard({
               />
             </div>
 
-            <div className="col-12 col-lg-7 mt-4 pt-lg-5">
+            <div className="project-detail-media-column col-12 col-lg-7 mt-4 pt-lg-5">
               <ProjectMediaPanel
                 mediaList={singleProjectMedia}
                 carouselTitle={project.title}

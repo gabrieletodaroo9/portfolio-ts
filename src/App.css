@@ -477,6 +477,11 @@ footer a:not(.btn):focus-visible {
   background: #fff;
 }
 
+.project-detail-media-column,
+.project-media-panel {
+  min-width: 0;
+}
+
 .project-media-panel-header .project-section-switch {
   border: 0;
   border-radius: 0;
@@ -642,6 +647,12 @@ footer a:not(.btn):focus-visible {
 }
 
 @media (max-width: 575.98px) {
+  .project-detail-media-column,
+  .project-media-panel {
+    width: 100%;
+    max-width: 100%;
+  }
+
   .project-detail-title {
     font-size: clamp(2rem, 12vw, 2.6rem);
   }

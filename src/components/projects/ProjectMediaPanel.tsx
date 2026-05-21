@@ -19,7 +19,7 @@ export default function ProjectMediaPanel({
   animationKey,
 }: ProjectMediaPanelProps) {
   return (
-    <div className="border rounded bg-light overflow-hidden">
+    <div className="project-media-panel border rounded bg-light overflow-hidden w-100">
       {headerActions && (
         <div className="project-media-panel-header">{headerActions}</div>
       )}
