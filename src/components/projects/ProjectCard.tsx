@@ -47,6 +47,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               src={getPublicStorageUrl(project.cover_img_url)}
               alt={project.title}
               loading="lazy"
+              decoding="async"
               className={`position-absolute top-0 start-0 w-100 h-100 object-fit-cover`}
               style={{ 
                 transition: "opacity 0.2s ease-in-out",
@@ -70,6 +71,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                     src={getPublicStorageUrl(item.technologies.img_url)}
                     alt={item.technologies.name}
                     loading="lazy"
+                    decoding="async"
                     width="24"
                     height="24"
                     className="rounded object-fit-contain"

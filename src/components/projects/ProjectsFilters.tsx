@@ -1,5 +1,6 @@
 import { useState, type FocusEvent } from "react";
 import { type Tables } from "../../types/supabase";
+import Icon from "../ui/Icon";
 
 type ProjectsFiltersProps = {
   categories: Tables<"types">[]
@@ -40,7 +41,7 @@ export default function ProjectsFilters(props: ProjectsFiltersProps) {
         <div className="col-12 col-lg-9">
           <label className="projects-filter-field">
             <span className="projects-filter-icon">
-              <i className="bi bi-search"></i>
+              <Icon name="search" />
             </span>
             <input
               type="search"
@@ -66,10 +67,10 @@ export default function ProjectsFilters(props: ProjectsFiltersProps) {
               aria-expanded={isCategoryMenuOpen}
             >
               <span className="projects-filter-icon">
-                <i className="bi bi-layers"></i>
+                <Icon name="layers" />
               </span>
               <span className="projects-category-label">{selectedCategoryName}</span>
-              <i className="bi bi-chevron-down projects-category-chevron"></i>
+              <Icon name="chevron-down" className="projects-category-chevron" />
             </button>
 
             {isCategoryMenuOpen && (

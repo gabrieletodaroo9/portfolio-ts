@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
+import Icon from "../components/ui/Icon";
 import { baseStorageUrl } from "../supabaseClient";
 
 const mainBackgroundVideoUrl = `${baseStorageUrl}portfolio-assets/profile/wallpaper-portfolio1.mp4`;
@@ -13,6 +14,7 @@ type ContactToastState = {
 export default function DefaultLayout() {
     const location = useLocation();
     const navigate = useNavigate();
+    const [shouldLoadBackgroundVideo, setShouldLoadBackgroundVideo] = useState(false);
     const [isContactToastVisible, setIsContactToastVisible] = useState(false);
     const [isContactToastLeaving, setIsContactToastLeaving] = useState(false);
 
@@ -24,6 +26,20 @@ export default function DefaultLayout() {
             setIsContactToastLeaving(false);
         }, 320);
     }
+
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (prefersReducedMotion) {
+            return;
+        }
+
+        const loadBackgroundVideoTimeout = window.setTimeout(() => {
+            setShouldLoadBackgroundVideo(true);
+        }, 600);
+
+        return () => window.clearTimeout(loadBackgroundVideoTimeout);
+    }, []);
 
     useEffect(() => {
         const state = location.state as ContactToastState | null;
@@ -58,16 +74,19 @@ export default function DefaultLayout() {
         <div className="d-flex flex-column min-vh-100">
             <Header />
             <main className="site-main flex-grow-1 d-flex flex-column">
-                <video
-                    className="site-main-background-video"
-                    src={mainBackgroundVideoUrl}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    aria-hidden="true"
-                    onCanPlay={(e) => (e.currentTarget.playbackRate = 0.8)}
-                />
+                {shouldLoadBackgroundVideo && (
+                    <video
+                        className="site-main-background-video"
+                        src={mainBackgroundVideoUrl}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="metadata"
+                        aria-hidden="true"
+                        onCanPlay={(e) => (e.currentTarget.playbackRate = 0.8)}
+                    />
+                )}
                 <div className="site-main-content flex-grow-1 d-flex flex-column">
                     <Outlet />
                 </div>
@@ -76,7 +95,7 @@ export default function DefaultLayout() {
                 <div className="contact-toast-wrapper position-fixed bottom-0 end-0" style={{ zIndex: 1080 }} aria-live="polite" aria-atomic="true">
                     <div className={`contact-toast d-flex align-items-start gap-3 p-3 p-md-4 bg-white border border-secondary rounded-4 shadow-lg ${isContactToastLeaving ? "is-leaving" : ""}`}>
                         <span className="contact-toast-icon d-inline-flex align-items-center justify-content-center text-white bg-secondary rounded-circle flex-shrink-0">
-                            <i className="bi bi-check-lg"></i>
+                            <Icon name="check-lg" />
                         </span>
                         <div className="pe-2">
                             <p className="contact-toast-title fw-bold mb-1">Messaggio inviato</p>

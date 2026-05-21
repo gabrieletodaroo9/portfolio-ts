@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { getPublicStorageUrl } from "../../supabaseClient";
 import { type Tables } from "../../types/supabase";
 import ProjectMediaCarouselSkeleton from "../skeleton/ProjectMediaCarouselSkeleton";
+import Icon from "../ui/Icon";
 
 export type ProjectCarouselMedia = Pick<
   Tables<"project_media">,
@@ -94,6 +95,7 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
               key={activeMedia.file_path}
               className="position-absolute top-0 start-0 w-100 h-100 object-fit-contain"
               controls
+              preload="metadata"
               style={{ opacity: isMediaLoaded ? 1 : 0 }}
               onLoadedData={() => setLoadedMediaPath(activeMedia.file_path)}
               onError={() => setLoadedMediaPath(activeMedia.file_path)}
@@ -114,6 +116,7 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
                 src={activeMediaUrl}
                 alt={title}
                 loading="lazy"
+                decoding="async"
                 className="w-100 h-100 object-fit-contain"
                 style={{
                   opacity: isMediaLoaded ? 1 : 0,
@@ -132,7 +135,7 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
               aria-label={`Apri media ${title} a schermo intero`}
               onClick={() => setIsLightboxOpen(true)}
             >
-              <i className="bi bi-arrows-fullscreen"></i>
+              <Icon name="arrows-fullscreen" />
             </button>
           )}
         </div>
@@ -144,7 +147,7 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
               className="project-media-carousel-arrow btn border-0 text-secondary p-1"
               onClick={showPreviousImage}
             >
-              <i className="bi bi-arrow-left"></i>
+              <Icon name="arrow-left" />
             </button>
             <span className="small text-muted align-self-center">
               {safeActiveIndex + 1} / {mediaList.length}
@@ -154,7 +157,7 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
               className="project-media-carousel-arrow btn border-0 text-secondary p-1"
               onClick={showNextImage}
             >
-              <i className="bi bi-arrow-right"></i>
+              <Icon name="arrow-right" />
             </button>
           </div>
         )}
@@ -178,7 +181,7 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
                 setIsLightboxOpen(false);
               }}
             >
-              <i className="bi bi-x-lg"></i>
+              <Icon name="x-lg" />
             </button>
 
             {canNavigateLightbox && (
@@ -192,7 +195,7 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
                     showPreviousLightboxMedia();
                   }}
                 >
-                  <i className="bi bi-chevron-left"></i>
+                  <Icon name="chevron-left" />
                 </button>
 
                 <button
@@ -204,7 +207,7 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
                     showNextLightboxMedia();
                   }}
                 >
-                  <i className="bi bi-chevron-right"></i>
+                  <Icon name="chevron-right" />
                 </button>
               </>
             )}
@@ -215,6 +218,7 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
                 className="project-media-lightbox-media"
                 controls
                 autoPlay
+                preload="metadata"
                 onClick={(event) => event.stopPropagation()}
               >
                 <source src={activeMediaUrl} />
@@ -223,6 +227,7 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
               <img
                 src={activeMediaUrl}
                 alt={title}
+                decoding="async"
                 className="project-media-lightbox-media"
                 onClick={(event) => event.stopPropagation()}
               />

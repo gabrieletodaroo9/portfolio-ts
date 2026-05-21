@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
+import Icon from "../ui/Icon";
 
 const githubUrl = "https://github.com/gabrieletodaroo9";
 const linkedinUrl = "https://www.linkedin.com/in/gabriele-todaro-dev";
@@ -23,7 +24,7 @@ export default function Footer() {
                 rel="noreferrer"
                 aria-label="Profilo GitHub"
               >
-                <i className="bi bi-github"></i>
+                <Icon name="github" />
               </a>
               <a
                 href={linkedinUrl}
@@ -32,7 +33,7 @@ export default function Footer() {
                 rel="noreferrer"
                 aria-label="Profilo LinkedIn"
               >
-                <i className="bi bi-linkedin"></i>
+                <Icon name="linkedin" />
               </a>
             </div>
           </div>

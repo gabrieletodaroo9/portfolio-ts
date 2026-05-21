@@ -9,6 +9,7 @@ import {
   ProjectTechnologyIcons,
   type ProjectTechnologyItem,
 } from "./ProjectTechnologyList";
+import Icon from "../ui/Icon";
 
 type ProjectMedia = Pick<
   Tables<"project_media">,
@@ -133,7 +134,7 @@ export default function ProjectDetailsCard({
             target="_blank"
             rel="noreferrer"
           >
-            <i className="bi bi-github me-2"></i>
+            <Icon name="github" className="me-2" />
              Vedi su GitHub
           </a>
         )}
@@ -145,7 +146,7 @@ export default function ProjectDetailsCard({
     <article>
       <div className="d-flex align-items-center justify-content-between mb-3 mb-md-4">
         <Link to="/projects" className="project-back-link btn border-0 pt-0 btn-outline-secondary">
-          <i className="bi bi-arrow-left me-2"></i>
+          <Icon name="arrow-left" className="me-2" />
           Torna ai progetti
         </Link>
 

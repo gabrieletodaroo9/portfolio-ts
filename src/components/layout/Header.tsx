@@ -20,6 +20,8 @@ export default function Header() {
                   src={getPublicStorageUrl("portfolio-assets/profile/logo.webp")}
                   alt="Logo"
                   height="35"
+                  decoding="async"
+                  fetchPriority="high"
                 />
               </Link>
 

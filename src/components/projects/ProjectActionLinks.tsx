@@ -1,3 +1,5 @@
+import Icon from "../ui/Icon";
+
 type ProjectActionLinksProps = {
   githubUrl: string | null;
   githubLabel?: string;
@@ -21,7 +23,7 @@ export default function ProjectActionLinks({
           target="_blank"
           rel="noreferrer"
         >
-          <i className="bi bi-github me-2"></i>
+          <Icon name="github" className="me-2" />
           {githubLabel}
         </a>
       )}

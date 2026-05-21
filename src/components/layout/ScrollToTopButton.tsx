@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Icon from "../ui/Icon";
 
 export default function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
@@ -31,7 +32,7 @@ export default function ScrollToTopButton() {
       onClick={scrollToTop}
       aria-label="Torna su"
     >
-      <i className="bi bi-arrow-up"></i>
+      <Icon name="arrow-up" />
     </button>
   );
 }

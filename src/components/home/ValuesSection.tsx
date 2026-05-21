@@ -1,37 +1,39 @@
+import Icon, { type IconName } from "../ui/Icon";
+
 type ValueCard = {
-  iconClass: string;
+  iconName: IconName;
   title: string;
   description: string;
 };
 
 const valueCards: ValueCard[] = [
   {
-    iconClass: "bi bi-code-slash",
+    iconName: "code-slash",
     title: "Architetture Full-Stack",
     description:
       "Progetto e realizzo ecosistemi digitali completi, curando ogni aspetto dalla logica server all'interfaccia finale.",
   },
   {
-    iconClass: "bi bi-layers",
+    iconName: "layers",
     title: "Interfacce Intuitive",
     description:
       "Sviluppo interfacce pulite e reattive, dove ogni elemento è al posto giusto per rendere la navigazione semplice e piacevole.",
   },
   {
-    iconClass: "bi bi-lightning-charge",
+    iconName: "lightning-charge",
     title: "Performance & API",
     description:
       "Costruisco API robuste e scalabili, ottimizzando velocità e sicurezza per garantire uno scambio dati sempre fluido, rapido e protetto.",
   },
 ];
 
-function ValueFeatureCard({ iconClass, title, description }: ValueCard) {
+function ValueFeatureCard({ iconName, title, description }: ValueCard) {
   return (
     <article className="card h-100 border-0 shadow rounded-4">
       <div className="card-body d-flex flex-column p-4">
         <div className="text-center">
           <span className="d-inline-flex align-items-center justify-content-center fs-2 pb-1 text-secondary">
-            <i className={iconClass}></i>
+            <Icon name={iconName} />
           </span>
         </div>
 

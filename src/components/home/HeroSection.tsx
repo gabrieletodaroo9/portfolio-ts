@@ -2,6 +2,7 @@ import { useState } from "react";
 import { baseStorageUrl } from "../../supabaseClient";
 import HeroImageSkeleton from "../skeleton/HeroImageSkeleton";
 import ButtonLink from "../ui/ButtonLink";
+import Icon from "../ui/Icon";
 
 const profileImageUrl = `${baseStorageUrl}portfolio-assets/profile/gabriele.webp`;
 
@@ -27,7 +28,7 @@ export default function HeroSection() {
             <div className="d-flex flex-wrap align-items-center gap-3 gap-lg-4">
               <ButtonLink to="/contact">Inizia un progetto</ButtonLink>
               <ButtonLink to="/projects" variant="outline-light">
-                Guarda i miei lavori <i className="bi bi-arrow-right ms-2"></i>
+                Guarda i miei lavori <Icon name="arrow-right" className="ms-2" />
               </ButtonLink>
             </div>
           </div>
@@ -44,6 +45,10 @@ export default function HeroSection() {
               <img
                 src={profileImageUrl}
                 alt="Gabriele Todaro"
+                width={400}
+                height={400}
+                decoding="async"
+                fetchPriority="high"
                 className={`w-100 h-100 object-fit-cover rounded ${isImageLoaded ? "opacity-100" : "opacity-0"}`}
                 onLoad={() => setIsImageLoaded(true)}
                 onError={() => setIsImageLoaded(true)}

@@ -1,8 +1,20 @@
 import { createClient } from '@supabase/supabase-js';
 import {type Database } from './types/supabase'; 
 
-export const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+function getRequiredEnv(envName: "VITE_SUPABASE_URL" | "VITE_SUPABASE_ANON_KEY"): string {
+  const envValue = import.meta.env[envName];
+
+  if (!envValue) {
+    throw new Error(
+      `Variabile ambiente ${envName} mancante. Controlla il file .env o le variabili di Cloudflare Pages.`,
+    );
+  }
+
+  return envValue;
+}
+
+export const supabaseUrl = getRequiredEnv("VITE_SUPABASE_URL").replace(/\/$/, "");
+const supabaseKey = getRequiredEnv("VITE_SUPABASE_ANON_KEY");
 
 export const supabase = createClient<Database>(supabaseUrl, supabaseKey);
 

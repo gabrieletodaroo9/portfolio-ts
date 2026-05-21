@@ -160,6 +160,22 @@ footer a:not(.btn):focus-visible {
   color: #f17f1d !important;
 }
 
+.app-icon {
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+  align-items: center;
+  justify-content: center;
+  vertical-align: -0.125em;
+}
+
+.app-icon svg {
+  display: block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
 /* #endregion */
 
 /* #region CONTACT */
@@ -471,7 +487,7 @@ footer a:not(.btn):focus-visible {
   box-shadow: none !important;
 }
 
-.project-back-link .bi-arrow-left {
+.project-back-link .app-icon {
   display: inline-block;
   transition: transform 0.18s ease;
 }
@@ -856,8 +872,8 @@ footer a:not(.btn):focus-visible {
   transform: translateY(-1px) scale(1.025);
 }
 
-.btn.project-back-link:hover .bi-arrow-left,
-.btn.project-back-link:focus-visible .bi-arrow-left {
+.btn.project-back-link:hover .app-icon,
+.btn.project-back-link:focus-visible .app-icon {
   transform: translateX(-3px);
 }
 

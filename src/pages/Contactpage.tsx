@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Seo from "../components/seo/Seo";
+import Icon from "../components/ui/Icon";
 
 type ContactForm = {
   fullName: string;
@@ -124,7 +125,7 @@ export default function Contactpage() {
 
                 <div className="d-flex gap-3">
                   <span className="text-secondary fs-4">
-                    <i className="bi bi-diagram-3"></i>
+                    <Icon name="diagram-3" />
                   </span>
                   <div>
                     <h2 className="h6 fw-bold mb-1">Prima analisi chiara</h2>
@@ -136,7 +137,7 @@ export default function Contactpage() {
 
                 <div className="d-flex gap-3">
                   <span className="text-secondary fs-4">
-                    <i className="bi bi-shield-check"></i>
+                    <Icon name="shield-check" />
                   </span>
                   <div>
                     <h2 className="h6 fw-bold mb-1">Dati protetti</h2>
@@ -231,7 +232,7 @@ export default function Contactpage() {
                   ) : (
                     <>
                       Invia richiesta
-                      <i className="bi bi-send ms-2"></i>
+                      <Icon name="send" className="ms-2" />
                     </>
                   )}
                 </button>
