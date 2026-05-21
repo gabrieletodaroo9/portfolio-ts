@@ -7,7 +7,6 @@ type ContactForm = {
   fullName: string;
   email: string;
   message: string;
-  website: string;
   privacyAccepted: boolean;
 };
 
@@ -30,7 +29,6 @@ export default function Contactpage() {
     fullName: "",
     email: "",
     message: "",
-    website: "",
     privacyAccepted: false,
   });
   const [errorMessage, setErrorMessage] = useState("");
@@ -46,7 +44,13 @@ export default function Contactpage() {
   async function handleSubmit(event: ContactSubmitEvent) {
     event.preventDefault();
 
-    if (formData.website.trim()) {
+    const submittedFormData = new FormData(event.currentTarget);
+    const botcheckValue = submittedFormData.get("botcheck");
+    const websiteValue = submittedFormData.get("website");
+    const isHoneypotFilled =
+      Boolean(botcheckValue) || (typeof websiteValue === "string" && websiteValue.trim().length > 0);
+
+    if (isHoneypotFilled) {
       navigate("/", {
         state: {
           contactMessageSent: true,
@@ -75,7 +79,7 @@ export default function Contactpage() {
       web3FormsData.append("subject", `Nuova richiesta progetto da ${formData.fullName}`);
       web3FormsData.append("from_name", emailFromName);
       web3FormsData.append("replyto", formData.email);
-      web3FormsData.append("botcheck", formData.website);
+      web3FormsData.append("botcheck", "");
 
       // Questi campi vengono mostrati nel corpo dell'email con etichette piu leggibili.
       web3FormsData.append("Nome completo", formData.fullName);
@@ -99,7 +103,6 @@ export default function Contactpage() {
         fullName: "",
         email: "",
         message: "",
-        website: "",
         privacyAccepted: false,
       });
       navigate("/", {
@@ -216,16 +219,23 @@ export default function Contactpage() {
                     ></textarea>
                   </div>
 
-                  <div className="visually-hidden" aria-hidden="true">
+                  <div className="d-none">
+                    <input
+                      id="botcheck"
+                      name="botcheck"
+                      type="checkbox"
+                      className="d-none"
+                      tabIndex={-1}
+                      autoComplete="off"
+                    />
                     <label htmlFor="website">Sito web</label>
                     <input
                       id="website"
                       name="website"
                       type="text"
+                      className="d-none"
                       tabIndex={-1}
                       autoComplete="off"
-                      value={formData.website}
-                      onChange={(event) => updateField("website", event.target.value)}
                     />
                   </div>
                 </div>
