@@ -36,6 +36,7 @@ export default function Seo({
       <link rel="canonical" href={canonicalUrl} />
 
       <meta property="og:type" content="website" />
+      <meta property="og:locale" content="it_IT" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={canonicalUrl} />
