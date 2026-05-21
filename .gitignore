@@ -27,3 +27,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+PUBLISHING_IMPLEMENTATION_PLAN.md

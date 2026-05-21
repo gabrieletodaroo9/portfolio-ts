@@ -25,10 +25,6 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
   const canNavigateLightbox = mediaList.length > 1;
 
   useEffect(() => {
-    setIsPreviewVideoPlaying(false);
-  }, [activeMedia?.file_path]);
-
-  useEffect(() => {
     if (!isLightboxOpen) {
       return;
     }
@@ -49,22 +45,27 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
     };
   }, [isLightboxOpen]);
 
+  function updateActiveIndex(nextIndex: number) {
+    setIsPreviewVideoPlaying(false);
+    setActiveIndex(nextIndex);
+  }
+
   function showPreviousImage() {
     if (activeIndex === 0) {
-      setActiveIndex(mediaList.length - 1);
+      updateActiveIndex(mediaList.length - 1);
       return;
     }
 
-    setActiveIndex(activeIndex - 1);
+    updateActiveIndex(activeIndex - 1);
   }
 
   function showNextImage() {
     if (activeIndex === mediaList.length - 1) {
-      setActiveIndex(0);
+      updateActiveIndex(0);
       return;
     }
 
-    setActiveIndex(activeIndex + 1);
+    updateActiveIndex(activeIndex + 1);
   }
 
   function showPreviousLightboxMedia() {

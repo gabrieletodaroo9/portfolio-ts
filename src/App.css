@@ -6,6 +6,26 @@
   padding: 0;
 }
 
+html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+body {
+  overscroll-behavior-x: none;
+}
+
 /* #endregion */
 
 /* #region VARIABLES */
@@ -23,6 +43,43 @@
 body {
   font-family: var(--font-body);
   text-rendering: optimizeLegibility;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+p,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.btn,
+.badge,
+.form-label,
+.form-check-label {
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 575.98px) {
+  section,
+  article,
+  main,
+  header,
+  footer {
+    max-width: 100%;
+  }
+
+  .row,
+  [class*="col-"] {
+    min-width: 0;
+  }
 }
 
 h1,
@@ -78,6 +135,7 @@ a:not(.btn):not(.navbar-brand):not(.text-reset):focus-visible {
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  min-width: 0;
 }
 
 .site-main-background-video {
@@ -94,6 +152,7 @@ a:not(.btn):not(.navbar-brand):not(.text-reset):focus-visible {
 .site-main-content {
   position: relative;
   z-index: 1;
+  min-width: 0;
 }
 
 footer a:not(.btn):hover,
@@ -198,6 +257,23 @@ footer a:not(.btn):focus-visible {
 }
 
 @media (max-width: 575.98px) {
+  .site-header .container-fluid {
+    min-width: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .site-header .navbar-brand {
+    min-width: 0;
+    max-width: calc(100% - 52px);
+  }
+
+  .site-header .navbar-brand img {
+    max-width: 100%;
+    height: 35px;
+    object-fit: contain;
+  }
+
   .site-header .navbar-collapse {
     display: block !important;
     max-height: 0;
@@ -336,6 +412,7 @@ footer a:not(.btn):focus-visible {
 .project-card-link {
   display: block;
   height: 100%;
+  min-width: 0;
 }
 
 .project-card-link .card {
@@ -362,6 +439,15 @@ footer a:not(.btn):focus-visible {
 
   .project-card-link:hover .card,
   .project-card-link:active .card {
+    transform: none;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .project-card-link:hover .card,
+  .project-card-link:focus-visible .card,
+  .project-card-link:active .card {
+    box-shadow: 0 0.125rem 0.25rem rgba(15, 23, 42, 0.075) !important;
     transform: none;
   }
 }
@@ -398,6 +484,11 @@ footer a:not(.btn):focus-visible {
 .project-detail-description {
   font-size: clamp(0.98rem, 1.25vw, 1.13rem);
   line-height: 1.7;
+}
+
+.project-media-panel-content,
+.project-media-panel-content > * {
+  min-width: 0;
 }
 
 .project-media-panel-content {
@@ -534,6 +625,33 @@ footer a:not(.btn):focus-visible {
   cursor: default;
 }
 
+@media (max-width: 575.98px) {
+  .project-detail-title {
+    font-size: clamp(2rem, 12vw, 2.6rem);
+  }
+
+  .project-media-lightbox {
+    min-height: 100dvh;
+    padding:
+      max(0.75rem, env(safe-area-inset-top))
+      max(0.75rem, env(safe-area-inset-right))
+      max(0.75rem, env(safe-area-inset-bottom))
+      max(0.75rem, env(safe-area-inset-left));
+  }
+
+  .project-media-lightbox-media {
+    max-width: calc(100vw - 1.5rem);
+    max-height: calc(100dvh - 5rem);
+  }
+
+  .project-section-switch-option {
+    min-width: 0;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    font-size: 0.92rem;
+  }
+}
+
 @media (min-width: 768px) {
   .project-media-lightbox-arrow {
     width: 44px;
@@ -652,6 +770,10 @@ footer a:not(.btn):focus-visible {
     color 0.2s ease;
 }
 
+.btn {
+  white-space: normal;
+}
+
 .btn:hover {
   box-shadow: 0 0.42rem 0.9rem rgba(15, 23, 42, 0.11);
   transform: translateY(-2px);
@@ -666,6 +788,31 @@ footer a:not(.btn):focus-visible {
 .btn.disabled {
   box-shadow: none;
   transform: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+  a:not(.btn):not(.navbar-brand):not(.text-reset):hover,
+  a:not(.btn):not(.navbar-brand):not(.text-reset):focus-visible,
+  .btn:hover,
+  .btn:focus-visible,
+  .btn:active,
+  .project-media-carousel-arrow:hover,
+  .project-media-carousel-arrow:focus-visible,
+  .project-media-carousel-arrow:active,
+  .project-media-lightbox-arrow:hover,
+  .project-media-lightbox-arrow:focus-visible,
+  .project-media-lightbox-arrow:active {
+    box-shadow: none !important;
+    transform: none !important;
+    translate: none;
+  }
+
+  .project-media-expand-button,
+  .project-media-expand-button:hover,
+  .project-media-expand-button:focus-visible,
+  .project-media-expand-button:active {
+    transform: translate(-50%, -50%) !important;
+  }
 }
 
 .btn-secondary {
@@ -765,12 +912,84 @@ footer a:not(.btn):focus-visible {
 }
 
 @media (max-width: 575.98px) {
+  .bg-hero-gradient {
+    overflow: hidden;
+  }
+
+  .bg-hero-gradient .display-5 {
+    font-size: clamp(2.05rem, 9.5vw, 2.45rem);
+  }
+
+  .bg-hero-gradient .ratio {
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 375px) {
+  .bg-hero-gradient .d-flex.flex-wrap {
+    align-items: stretch !important;
+  }
+
+  .bg-hero-gradient .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .display-4,
+  .display-5,
+  .display-6 {
+    line-height: 1.12;
+  }
+
+  .display-4 {
+    font-size: clamp(2rem, 9vw, 2.35rem);
+  }
+
+  .display-5 {
+    font-size: clamp(2rem, 8.6vw, 2.3rem);
+  }
+
+  .display-6 {
+    font-size: clamp(1.75rem, 7.5vw, 2rem);
+  }
+
+  .lead {
+    font-size: 1.02rem;
+    line-height: 1.65;
+  }
+
+  .card,
+  .rounded-4,
+  .rounded-5 {
+    max-width: 100%;
+  }
+
+  .project-card-link .card-body > .d-flex {
+    flex-wrap: wrap;
+  }
+
+  .project-card-link .badge {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  .contact-form .form-control,
+  .contact-form .form-check-input,
+  .projects-filter-input,
+  .projects-category-toggle {
+    font-size: 16px;
+  }
+
   .contact-toast-wrapper {
     padding: 0.5rem;
+    right: env(safe-area-inset-right) !important;
+    bottom: env(safe-area-inset-bottom) !important;
+    left: env(safe-area-inset-left);
   }
 
   .contact-toast {
-    max-width: min(340px, calc(100vw - 1rem));
+    max-width: calc(100vw - 1rem - env(safe-area-inset-left) - env(safe-area-inset-right));
     gap: 0.65rem !important;
     border-radius: 1rem !important;
   }
