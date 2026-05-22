@@ -12,10 +12,15 @@ export type ProjectCarouselMedia = Pick<
 
 type ProjectMediaCarouselProps = {
   mediaList: ProjectCarouselMedia[];
+  posterImagePath?: string | null;
   title: string;
 };
 
-export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaCarouselProps) {
+export default function ProjectMediaCarousel({
+  mediaList,
+  posterImagePath,
+  title,
+}: ProjectMediaCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [loadedMediaPath, setLoadedMediaPath] = useState("");
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -83,6 +88,7 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
 
   const isMediaLoaded = loadedMediaPath === activeMedia.file_path;
   const activeMediaUrl = getPublicStorageUrl(activeMedia.file_path);
+  const posterImageUrl = posterImagePath ? getPublicStorageUrl(posterImagePath) : undefined;
 
   return (
     <div>
@@ -95,8 +101,10 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
               key={activeMedia.file_path}
               className="position-absolute top-0 start-0 w-100 h-100 object-fit-contain"
               controls
+              poster={posterImageUrl}
               preload="metadata"
               style={{ opacity: isMediaLoaded ? 1 : 0 }}
+              onLoadedMetadata={() => setLoadedMediaPath(activeMedia.file_path)}
               onLoadedData={() => setLoadedMediaPath(activeMedia.file_path)}
               onError={() => setLoadedMediaPath(activeMedia.file_path)}
               onPlay={() => setIsPreviewVideoPlaying(true)}
@@ -189,7 +197,7 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
                 <button
                   type="button"
                   className="project-media-lightbox-arrow project-media-lightbox-arrow-left btn"
-                  aria-label="Immagine precedente"
+                  aria-label="Media precedente"
                   onClick={(event) => {
                     event.stopPropagation();
                     showPreviousLightboxMedia();
@@ -201,7 +209,7 @@ export default function ProjectMediaCarousel({ mediaList, title }: ProjectMediaC
                 <button
                   type="button"
                   className="project-media-lightbox-arrow project-media-lightbox-arrow-right btn"
-                  aria-label="Immagine successiva"
+                  aria-label="Media successivo"
                   onClick={(event) => {
                     event.stopPropagation();
                     showNextLightboxMedia();

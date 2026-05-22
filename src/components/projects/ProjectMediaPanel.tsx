@@ -6,6 +6,7 @@ import ProjectMediaCarousel, {
 type ProjectMediaPanelProps = {
   mediaList: ProjectCarouselMedia[];
   carouselTitle: string;
+  posterImagePath?: string | null;
   headerActions?: ReactNode;
   body?: ReactNode;
   animationKey?: string;
@@ -14,6 +15,7 @@ type ProjectMediaPanelProps = {
 export default function ProjectMediaPanel({
   mediaList,
   carouselTitle,
+  posterImagePath,
   headerActions,
   body,
   animationKey,
@@ -27,7 +29,11 @@ export default function ProjectMediaPanel({
       <div key={animationKey} className="project-media-panel-content p-3 p-md-5">
         {body}
 
-        <ProjectMediaCarousel mediaList={mediaList} title={carouselTitle} />
+        <ProjectMediaCarousel
+          mediaList={mediaList}
+          posterImagePath={posterImagePath}
+          title={carouselTitle}
+        />
       </div>
     </div>
   );

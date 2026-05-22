@@ -184,6 +184,7 @@ export default function ProjectDetailsCard({
             <ProjectMediaPanel
               mediaList={activeMedia}
               carouselTitle={`${project.title} ${selectedMediaSection}`}
+              posterImagePath={project.cover_img_url}
               headerActions={renderSectionToggle()}
               body={renderPanelBody(activeDescription, activeGithub)}
               animationKey={selectedMediaSection}
@@ -224,6 +225,7 @@ export default function ProjectDetailsCard({
               <ProjectMediaPanel
                 mediaList={singleProjectMedia}
                 carouselTitle={project.title}
+                posterImagePath={project.cover_img_url}
               />
             </div>
           </div>
