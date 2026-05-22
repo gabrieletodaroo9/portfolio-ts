@@ -8,9 +8,15 @@ export default function Homepage() {
   return (
     <>
       <Seo
-        title="Gabriele Todaro | Sviluppatore Full-Stack"
-        description="Portfolio di Gabriele Todaro, sviluppatore full-stack specializzato in applicazioni web moderne, interfacce React e soluzioni backend solide."
+        title="Gabriele Todaro - Sviluppatore Full-Stack"
+        description="Portfolio di Gabriele Todaro, anche cercato come Todaro Dev o Tod Dev: sviluppatore full-stack specializzato in React, TypeScript, Laravel, MySQL e applicazioni web moderne."
         path="/"
+        keywords={[
+          "todaro dev portfolio",
+          "tod dev sviluppatore",
+          "todaro sviluppatore web",
+          "sviluppatore siti web",
+        ]}
       />
       <HeroSection />
       <ThinkingSection />

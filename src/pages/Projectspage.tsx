@@ -95,9 +95,15 @@ export default function Projectspage() {
   return (
     <>
       <Seo
-        title="Progetti | Gabriele Todaro"
-        description="Una selezione di progetti web realizzati da Gabriele Todaro, con focus su React, TypeScript, Laravel, backend solidi e interfacce curate."
+        title="Progetti web | Gabriele Todaro"
+        description="Progetti web realizzati da Gabriele Todaro, Todaro Dev: portfolio full-stack con React, TypeScript, Laravel, backend solidi e interfacce curate."
         path="/projects"
+        keywords={[
+          "progetti Gabriele Todaro",
+          "progetti Todaro Dev",
+          "portfolio React Laravel",
+          "web developer full-stack",
+        ]}
       />
 
       <div className="container py-4">

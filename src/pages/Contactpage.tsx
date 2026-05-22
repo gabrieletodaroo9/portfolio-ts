@@ -121,8 +121,13 @@ export default function Contactpage() {
     <>
       <Seo
         title="Contatti | Gabriele Todaro"
-        description="Contatta Gabriele Todaro per parlare del tuo progetto web, ricevere una prima analisi e valutare una collaborazione full-stack."
+        description="Contatta Gabriele Todaro, Todaro Dev, per parlare del tuo progetto web, ricevere una prima analisi e valutare una collaborazione full-stack."
         path="/contact"
+        keywords={[
+          "contattare Gabriele Todaro",
+          "contatti Todaro Dev",
+          "sviluppatore web freelance",
+        ]}
       />
 
       <section className="py-3 py-lg-5 text-dark">
